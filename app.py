@@ -17,12 +17,9 @@ def index():
 @app.route('/menu1', methods=['GET', 'POST'])
 def menu1():    # 춤 일치도 분석
     menu = {'home': 0, 'menu1': 1, 'menu2': 0}
-    if request.method == 'GET':
+    if request.method == 'GET' :
         return render_template('menu1.html', menu=menu)
-    else:
-        files = request.files.getlist("file[]")
-        for f in files:
-			f.save('./uploads/' + f.filename)
+    else :
         # 변수1 = request.form['변수1']
         # 변수2 = request.form['변수2']
         # ...
