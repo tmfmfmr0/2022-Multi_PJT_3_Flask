@@ -20,11 +20,12 @@ def menu1():    # 춤 일치도 분석
     if request.method == 'GET':
         return render_template('menu1.html', menu=menu)
     else:
-        # month = int(request.form['month'])
-        # region = request.form['region']
-        # temp = request.form['temp']
-        # temp_graph(region, month, temp)
+        # 변수1 = request.form['변수1']
+        # 변수2 = request.form['변수2']
+        # ...
+        # 사용자함수(변수1, 변수2, ...)
         
+        # return render_template('menu2_res.html', 변수1=, 변수2=, ...)
         return render_template('menu1_res.html', menu=menu)
 
 
@@ -34,11 +35,12 @@ def menu2():    # 춤 입히기
     if request.method == 'GET':
         return render_template('menu2.html', menu=menu)
     else:
-        # month = request.form['month']
-        # temp = request.form['temp']
-        # folium_visual(month, temp)
-        # return render_template('menu2_res.html', menu=menu, month=month, temp=temp)
+        # 변수1 = request.form['변수1']
+        # 변수2 = request.form['변수2']
+        # ...
+        # 사용자함수(변수1, 변수2, ...)
         
+        # return render_template('menu2_res.html', 변수1=, 변수2=, ...)
         return render_template('menu2_res.html', menu=menu)
 
 
