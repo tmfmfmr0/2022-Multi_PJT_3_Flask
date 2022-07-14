@@ -6,13 +6,15 @@
 
 {% block content %}
 <div class="row">
-    <!-- <div class="col-1"></div> -->
-    <div class="col-10">
+    <div class="col">
 
         <form action="/menu2" method="post" style="font-family: NEXON Lv2 Gothic Light;">
 
-            <td>사용자 360도 사진 업로드 : </td>
-                파일 업로드
+            <form action = "http://localhost:9999/file_upload" method = "POST"  enctype = "multipart/form-data">
+                <td>사용자 360도 사진 업로드 : </td>
+                    <input type = "file" name = "file[]" multiple='multiple'/>
+            </form>
+
             <br>
             <td>배경 업로드 :</td>
                 파일 업로드
@@ -29,6 +31,5 @@
             <button type="submit" class="btn btn-primary mr-2" style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">실행</button>
         </form>
     </div>
-    <!-- <div class="col-1"></div> -->
 </div>
 {% endblock %}
