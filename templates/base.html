@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}오늘내일조{% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="{{url_for('static', filename='data/image/Web Icon (flask).ico')}}">
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+    {% block additional_head %}
+    {% endblock %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script type="text/javascript">
+                alert("{{messages[0]}}");
+            </script>
+        {% endif %}
+    {% endwith %}
+    <style>
+        @font-face {
+            font-family: 'NEXON Lv2 Gothic';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'NEXON Lv2 Gothic Bold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'NEXON Lv2 Gothic Light';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Light.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        a{
+            font-family: 'NEXON Lv2 Gothic Light';
+            color: whitesmoke;
+        }
+        .nav-link {
+            background-color: rgb(8,32,64);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <!-- Links -->
+        <ul class="nav nav-pills mr-auto">
+            <li class="nav-item mr-5">
+                <a class="nav-link {% if menu.home %}active{% endif %}" 
+                    href="{% if menu.home %}#{% else %}/{% endif %}">
+                    <i class="fa fa-home"></i> Home
+                </a>
+            </li>
+        </ul>
+        <nav class="navbar navbar-center">
+            <span class="navbar-text">
+                <strong>{% block heading %} 1조 <오늘내일> : K-pop AI dance 플랫폼 {% endblock %}</strong>
+            </span>
+        </nav>
+    </nav>
+
+    <div class="container show-grid">
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <ul class="nav flex-column nav-pills">
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item">
+                        <a class="nav-link {% if menu.menu1 %}active{% endif %}" 
+                            href="{% if menu.menu1 %}/menu1{% else %}/menu1{% endif %}">춤 일치도 분석</a>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item">
+                        <a class="nav-link {% if menu.menu2 %}active{% endif %}" 
+                            href="{% if menu.menu2 %}/menu2{% else %}/menu2{% endif %}">딥페이크 댄스</a>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                </ul>
+            </div>
+            <div class="col-9">
+                <h3>{% block subtitle %}{% endblock %}</h3>
+                <hr>
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center fixed-bottom">
+        <a href = "" class="navbar-text">
+            Copyright © 2022 멀티캠퍼스 9, 10회차 파이널 프로젝트 1조 <오늘내일>조 (정재은, 강신웅, 송민성, 석원경, 윤민영, 황상미). All rights reserved.
+        </a>
+    </nav>
+    {% block additional_body %}
+    {% endblock %}
+</body>
+</html>

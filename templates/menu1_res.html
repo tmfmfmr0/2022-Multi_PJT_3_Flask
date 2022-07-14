@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block subtitle %}
+<strong style="font-family: NEXON Lv2 Gothic Bold;">미래 기후 변화 추이 예측</strong> - 결과
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <table class="table" style="font-family: NEXON Lv2 Gothic Light;">
+            <tr>
+                <img src="static/img/weather_graph.png">
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button class="btn btn-primary" onclick="location.href='/menu1'" style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">재실행</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

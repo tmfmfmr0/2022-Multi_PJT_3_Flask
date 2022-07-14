@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block additional_head %}
+<style>
+    /* Make the image fully responsive */
+    .carousel-inner img {
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+    }
+</style>
+{% endblock %}
+{% block weather %} {{ weather|safe() }} {% endblock %}
+{% block subtitle %}
+<strong style="font-family: NEXON Lv2 Gothic;">K-pop AI dance 플랫폼</strong>
+<small style="font-family: NEXON Lv2 Gothic Light;">by 1조 <오늘내일></small>
+{% endblock %}
+{% block content %}
+<div id="demo" class="carousel slide" data-ride="carousel">
+    <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+    </ul>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <a href="{% if menu.menu1 %}/menu1{% else %}/menu1{% endif %}">
+                <img src="static/data/image/Home Banner 01.jpg"
+                    style="max-width: 100%; max-height:500px; margin: auto">
+                <div class="carousel-caption">
+                    <h3>춤 일치도 분석</h3>
+                    <p>|||</p>
+                </div>
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a href="{% if menu.menu2 %}/menu2{% else %}/menu2{% endif %}">
+                <img src="static/data/image/Home Banner 02.jpg"
+                    style="max-width: 100%; max-height:500px; margin: auto">
+                <div class="carousel-caption">
+                    <h3>춤 입히기</h3>
+                    <p>|||</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+</div>
+{% endblock %}

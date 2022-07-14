@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block subtitle %}
+<strong style="font-family: NEXON Lv2 Gothic Bold;">춤 일치도 분석</strong>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <!-- <div class="col-1"></div> -->
+    <div class="col-10">
+
+        <form action="/menu1" method="post"style="font-family: NEXON Lv2 Gothic Light;">
+
+            <td>춤 선택 : </td>
+                <select name="region">
+                    <option value="0">춤1</option>
+                    <option value="0">춤2</option>
+                    <option value="0">춤3</option>
+                    <option value="0">춤4</option>
+                </select>
+            <br>
+            <td>사용자 동영상 :</td>
+                녹화 or 업로드
+            <br>
+            <button type="submit" class="btn btn-primary mr-2" style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">실행</button>
+        </form>
+    </div>
+    <!-- <div class="col-1"></div> -->
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block subtitle %}
+<strong style="font-family: NEXON Lv2 Gothic Bold;">딥페이크 댄스</strong>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <!-- <div class="col-1"></div> -->
+    <div class="col-10">
+
+        <form action="/menu2" method="post" style="font-family: NEXON Lv2 Gothic Light;">
+
+            <td>사용자 360도 사진 업로드 : </td>
+                파일 업로드
+            <br>
+            <td>배경 업로드 :</td>
+                파일 업로드
+            <br>
+            <td>춤 영상 선택 or 업로드 : </td>
+                <select name="region">
+                    <option value="0">춤1</option>
+                    <option value="0">춤2</option>
+                    <option value="0">춤3</option>
+                    <option value="0">춤4</option>
+                </select>
+                업로드
+            <br>
+            <button type="submit" class="btn btn-primary mr-2" style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">실행</button>
+        </form>
+    </div>
+    <!-- <div class="col-1"></div> -->
+</div>
+{% endblock %}
