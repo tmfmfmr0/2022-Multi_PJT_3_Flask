@@ -9,25 +9,33 @@
     <div class="col">
 
         <form action="/menu2" method="post" style="font-family: NEXON Lv2 Gothic Light;">
-
-            <form action = "http://localhost:9999/file_upload" method = "POST"  enctype = "multipart/form-data">
-                <td>사용자 360도 사진 업로드 : </td>
-                    <input type = "file" name = "file[]" multiple='multiple'/>
+            <form>
             </form>
 
+            <td><strong>사용자 360˚ 사진 업로드 (여러 장 선택 가능):</strong></td>
+            <form action = "http://localhost:5000/menu2" method = "POST"  enctype = "multipart/form-data">
+                <input type = "file" name = "file" multiple='multiple'/>
+            </form>
             <br>
-            <td>배경 업로드 :</td>
-                파일 업로드
+
+            <td><strong>배경 사진 업로드 :</strong></td>
+            <form action = "http://localhost:5000/menu2" method = "POST"  enctype = "multipart/form-data">
+                <input type = "file" name = "file" />
+            </form>
             <br>
-            <td>춤 영상 선택 or 업로드 : </td>
+
+            <td><strong>춤 영상 선택 or 업로드 : </strong></td>
                 <select name="region">
                     <option value="0">춤1</option>
                     <option value="0">춤2</option>
                     <option value="0">춤3</option>
                     <option value="0">춤4</option>
                 </select>
-                업로드
-            <br>
+                <form action = "http://localhost:5000/menu2" method = "POST"  enctype = "multipart/form-data">
+                    <input type = "file" name = "file" />
+                </form>
+            <br><br>
+
             <button type="submit" class="btn btn-primary mr-2" style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">실행</button>
         </form>
     </div>

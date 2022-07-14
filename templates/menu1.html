@@ -9,18 +9,24 @@
     <div class="col">
 
         <form action="/menu1" method="post"style="font-family: NEXON Lv2 Gothic Light;">
+            <form>
+            </form>
 
-            <td>춤 선택 : </td>
+            <td><strong>춤 선택 : </strong></td>
                 <select name="region">
                     <option value="0">춤1</option>
                     <option value="0">춤2</option>
                     <option value="0">춤3</option>
                     <option value="0">춤4</option>
                 </select>
-            <br>
-            <td>사용자 동영상 :</td>
-                녹화 or 업로드
-            <br>
+            <br><br>
+
+            <td><strong>사용자 춤 영상 업로드 or 녹화 : </strong></td>
+            <form action = "http://localhost:5000/menu2" method = "POST"  enctype = "multipart/form-data">
+                <input type = "file" name = "file" />
+            </form>
+            <br><br>
+
             <button type="submit" class="btn btn-primary mr-2" style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">실행</button>
         </form>
     </div>
