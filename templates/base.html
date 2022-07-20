@@ -91,25 +91,8 @@
             </h3>
         </div>
         <div class="row mt-5">
-            <div class="col-md-7">
-                <ul class="nav flex-column nav-pills">
-                    <div class="dropdown-divider"></div>
-                    <li class="nav-item">
-                        <a class="nav-link {% if menu.menu1 %}active{% endif %}" 
-                            href="{% if menu.menu1 %}/menu1{% else %}/menu1{% endif %}">춤 일치도 분석</a>
-                    </li>
-                    <div class="dropdown-divider"></div>
-                    <li class="nav-item">
-                        <a class="nav-link {% if menu.menu2 %}active{% endif %}" 
-                            href="{% if menu.menu2 %}/menu2{% else %}/menu2{% endif %}">Impersonator</a>
-                    </li>
-                    <div class="dropdown-divider"></div>
-                </ul>
-            </div>
-            <div class="col-5">
-                {% block content %}
-                {% endblock %}
-            </div>
+            {% block content %}
+            {% endblock %}
         </div>
     </div>
 
