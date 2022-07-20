@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}오늘내일조{% endblock %}</title>
+    <title>{% block title %}1조 Project{% endblock %}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
@@ -12,9 +12,9 @@
     <link rel="shortcut icon" href="{{url_for('static', filename='data/image/Web Icon (flask).ico')}}">
     <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
-    {% block additional_head %}
-    {% endblock %}
+    {% block additional_head %} {% endblock %}
 
+    <!--
     <style>
         @font-face {
             font-family: 'NEXON Lv2 Gothic';
@@ -42,26 +42,59 @@
             background-color: rgb(8,32,64);
         }
     </style>
+    -->
 </head>
 
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-        <nav class="navbar navbar-center">
+    <nav class="navbar bg-dark navbar-dark">
+        <nav class="navbar navbar-left">
             <span class="navbar-text">
-                <h2><a class="nav-link {% if menu.home %}active{% endif %}" 
+                <h2>
+                    <a class="nav-link {% if menu.home %}active{% endif %}" 
                     href="{% if menu.home %}#{% else %}/{% endif %}">
-                    <strong>1조 <오늘내일> :  AI K-POP Dance Platform</strong>
-                </a></h2>
+                    <strong>1조 <오늘내일>조  :  AI K-POP Dance Platform </strong></a>
+                </h2>
             </span>
+        </nav>
+        <nav class="navbar navbar-center">
+            <ul class="nav nav-pills mr-auto">
+                <li class="nav-item mr-5">
+                    <a class="nav-link  {% if menu.menu1 %}active{% else %}bg-warning bg-gradient{% endif %}" 
+                        href="{% if menu.menu1 %}/menu1{% else %}/menu1{% endif %}">
+                        | 춤 일치도 분석 |
+                    </a>
+                </li>
+                <li class="nav-item mr-5">
+                    <a class="nav-link {% if menu.menu2 %}active{% else %}bg-warning bg-gradient{% endif %}" 
+                        href="{% if menu.menu2 %}/menu2{% else %}/menu2{% endif %}">
+                        | Impersonator |
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="navbar navbar-right">
+            <ul class="nav nav-pills mr-auto">
+                <li class="nav-item mr-5">
+                    <a class="nav-link"
+                        href="">
+                        | GitHub - 링크 아직 안넣음 |
+                    </a>
+                </li>
+            </ul>
         </nav>
     </nav>
 
-    <div class="container show-grid">
-        <div class="row mt-3">
+    
 
-            <div class="col-md-3">
+    <div class="container show-grid">
+        <>
+            <h3>{% block subtitle %}{% endblock %}</h3>
+
+        <div class="row mt-5">
+
+            <div class="col-md-7">
                 <ul class="nav flex-column nav-pills">
                     <div class="dropdown-divider"></div>
                     <li class="nav-item">
@@ -71,14 +104,14 @@
                     <div class="dropdown-divider"></div>
                     <li class="nav-item">
                         <a class="nav-link {% if menu.menu2 %}active{% endif %}" 
-                            href="{% if menu.menu2 %}/menu2{% else %}/menu2{% endif %}">딥페이크 댄스</a>
+                            href="{% if menu.menu2 %}/menu2{% else %}/menu2{% endif %}">Impersonator</a>
                     </li>
                     <div class="dropdown-divider"></div>
                 </ul>
             </div>
 
-            <div class="col-9">
-                <h3>{% block subtitle %}{% endblock %}</h3>
+            <div class="col-5">
+                
                 <hr>
                 {% block content %}
                 {% endblock %}
@@ -87,11 +120,11 @@
         </div>
     </div>
 
-    <div class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center fixed-bottom">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center fixed-bottom">
         <a href = "" class="navbar-text">
             Copyright © 2022 멀티캠퍼스 9, 10회차 파이널 프로젝트 1조 <오늘내일>조 (정재은, 강신웅, 송민성, 석원경, 윤민영, 황상미). All rights reserved.
         </a>
-    </div>
+    </nav>
     
     {% block additional_body %}
     {% endblock %}

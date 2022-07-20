@@ -1,43 +1,65 @@
 {% extends "base.html" %}
 
 {% block subtitle %}
-<strong style="font-family: NEXON Lv2 Gothic Bold;">딥페이크 댄스</strong>
+<strong style="font-family: NEXON Lv2 Gothic Bold;">Impersonator</strong>
 {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col">
-
-        <form action="/menu2" method="post" style="font-family: NEXON Lv2 Gothic Light;">
-            <form>
-            </form>
-
-            <td><strong>사용자 360˚ 사진 업로드 (여러 장 선택 가능):</strong></td>
-            <form action = "http://localhost:5000/menu2" method = "POST"  enctype = "multipart/form-data">
-                <input type = "file" name = "file" multiple='multiple'/>
-            </form>
-            <br>
-
-            <td><strong>배경 사진 업로드 :</strong></td>
-            <form action = "http://localhost:5000/menu2" method = "POST"  enctype = "multipart/form-data">
-                <input type = "file" name = "file" />
-            </form>
-            <br>
-
-            <td><strong>춤 영상 선택 or 업로드 : </strong></td>
-                <select name="region">
-                    <option value="0">춤1</option>
-                    <option value="0">춤2</option>
-                    <option value="0">춤3</option>
-                    <option value="0">춤4</option>
-                </select>
-                <form action = "http://localhost:5000/menu2" method = "POST"  enctype = "multipart/form-data">
-                    <input type = "file" name = "file" />
-                </form>
-            <br><br>
-
-            <button type="submit" class="btn btn-primary mr-2" style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">실행</button>
+        <form action="/menu2" method="post" enctype = "multipart/form-data">
+            <table class="table table-boarderless">
+                <tr>
+                    <td> <strong>춤 업로드 / 선택 : </strong> </td>
+                    <td>
+                        <div class="custom-file">
+                            <input type = "file" id = "dance_video" name = "dance_video" />
+                            <label class="custom-file-label" for="dance_video">춤 선택</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <strong>사용자 360˚ 사진 업로드 (여러 장 선택 가능):</strong> </td>
+                    <td>
+                        <div class="custom-file">
+                            <input type = "file" id = 'character360_images' name = "character360_images" multiple='multiple'/>
+                            <label class="custom-file-label" for="character360_images">사용자 360도 사진</label>
+                        </div>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td> <strong>사용자 배경 사진 업로드 :</strong> </td>
+                    <td>
+                        <div class="custom-file">
+                            <input type = "file" id = "background_image" name = "background_image" />
+                            <label class="custom-file-label" for="background_image">사용자 배경 사진</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <button type="submit" class = "btn btn-primary mr-2">실행</button> </td>
+                </tr>
+            </table>
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block additional_body %}
+    <script>
+        $("#dance_video").on("change", function() {
+            var fileName1 = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
+        });
+        $("#character360_images").on("change", function() {
+            var fileName2 = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
+        });
+        $("#background_image").on("change", function() {
+            var fileName3 = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName3);
+        });
+
+    </script>  
 {% endblock %}
