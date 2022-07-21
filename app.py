@@ -6,7 +6,6 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def index():
     menu = {'home': 1, 'menu1': 0, 'menu2': 0}
@@ -26,12 +25,15 @@ def menu1():
         # 사용자함수(변수1, 변수2, ...)
         
         # return render_template('menu2_res.html', 변수1=, 변수2=, ...)
-        return render_template('menu1_res.html', menu=menu)
+        return render_template('menu1.html', menu=menu)
 
 # 춤 입히기
 @app.route('/menu2', methods=['GET', 'POST'])
 def menu2():
     menu = {'home': 0, 'menu1': 0, 'menu2': 1}
+    dance_video = './src_ref/dance/*'
+    character_images = './src_ref/character/*'
+    background_image = './src_ref/background/*'
     if request.method == 'GET':
         return render_template('menu2.html', menu=menu)
     else:
@@ -44,8 +46,7 @@ def menu2():
         # 사용자함수(변수1, 변수2, ...)
         
         # return render_template('menu2_res.html', 변수1=, 변수2=, ...)
-        return render_template('menu2_res.html', menu=menu)
-
+        return render_template('menu2.html', menu=menu)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5500, debug=True)
