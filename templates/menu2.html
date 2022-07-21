@@ -6,8 +6,45 @@
 
 {% block content %}
 <div class="row">
-    <div class="col">
-        <form action="/menu2" method="post" enctype = "multipart/form-data">
+    <div class="col-6">
+        <form action="/menu2" method="post" enctype = "multipart/form-data" class="mt-3 ml-3 mr-1 pt-3 pl-3 pr-1" style="border:3px double #000;">
+            <table class="table table-boarderless">
+                <tr>
+                    <td> <strong>춤 업로드 / 선택 : </strong> </td>
+                    <td>
+                        <div class="custom-file">
+                            <input type = "file" id = "dance_video" name = "dance_video" />
+                            <label class="custom-file-label" for="dance_video">춤 선택</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <strong>사용자 360˚ 사진 업로드 (여러 장 선택 가능):</strong> </td>
+                    <td>
+                        <div class="custom-file">
+                            <input type = "file" id = 'character360_images' name = "character360_images" multiple='multiple'/>
+                            <label class="custom-file-label" for="character360_images">사용자 360도 사진</label>
+                        </div>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td> <strong>사용자 배경 사진 업로드 :</strong> </td>
+                    <td>
+                        <div class="custom-file">
+                            <input type = "file" id = "background_image" name = "background_image" />
+                            <label class="custom-file-label" for="background_image">사용자 배경 사진</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <button type="submit" class = "btn btn-primary mr-2">실행</button> </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="col-6">
+        <form action="/menu2" method="post" enctype = "multipart/form-data" class="mt-3 ml-0 mr-3 pt-3 pl-0 pr-3" style="border:3px double #000;">
             <table class="table table-boarderless">
                 <tr>
                     <td> <strong>춤 업로드 / 선택 : </strong> </td>

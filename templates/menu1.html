@@ -5,30 +5,32 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col">
-        <form action="/menu1" method="post" enctype = "multipart/form-data">
-            <table class="table table-boarderless">
-                <tr>
-                    <td> <strong>춤 업로드 / 선택 : </strong> </td>
-                    <td> 
-                        <select name="dance">
-                            <option value="0">춤1</option>
-                            <option value="0">춤2</option>
-                            <option value="0">춤3</option>
-                            <option value="0">춤4</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td> <strong>사용자 춤 영상 업로드 : </strong> </td>
-                    <td> <input type = "file" name = "user_dance_video" /> </td>
-                </tr>
-                <tr> 
-                    <td> <button type="submit" class="btn btn-primary mr-2">실행</button> </td>
-                </tr>
-            </table>
-        </form>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <form action="/menu1" method="post" enctype = "multipart/form-data">
+                <table class="table table-boarderless">
+                    <tr>
+                        <td> <strong>춤 업로드 / 선택 : </strong> </td>
+                        <td> 
+                            <select name="dance">
+                                <option value="0">춤1</option>
+                                <option value="0">춤2</option>
+                                <option value="0">춤3</option>
+                                <option value="0">춤4</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <strong>사용자 춤 영상 업로드 : </strong> </td>
+                        <td> <input type = "file" name = "user_dance_video" /> </td>
+                    </tr>
+                    <tr> 
+                        <td> <button type="submit" class="btn btn-primary mr-2">실행</button> </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
