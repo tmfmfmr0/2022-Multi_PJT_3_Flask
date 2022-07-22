@@ -5,48 +5,86 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col">
-            <form action="/menu1" method="post" enctype = "multipart/form-data">
-                <table class="table table-boarderless">
-                    <tr>
-                        <td> <strong>춤 업로드 / 선택 : </strong> </td>
-                        <td> 
-                            <div class="custom-file">
-                                <input type = "file" id = "dance_video" name = "dance_video" />
-                                <label class="custom-file-label" for="dance_video">춤 선택</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> <strong>사용자 춤 영상 업로드 : </strong> </td>
-                        <td>
-                            <div class="custom-file">
-                                <input type = "file" id = "user_dance" name = "user_dance" />
-                                <label class="custom-file-label" for="user_dance">사용자 춤 - 업로드되도록</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr> 
-                        <td> <button type="submit" class="btn btn-primary mr-2">실행</button> </td>
-                    </tr>
-                </table>
-            </form>
+<form action="/menu2" method="POST" enctype="multipart/form-data" class="mt-3 ml-3 mr-3">
+    <dic class='row justify-content-center'>
+        <div class="col-6">
+            <table class="table" style="border:3px double #000;">
+                <tr>
+                    <td class='col-4'> <strong>적용할 춤 영상 : </strong> </td>
+                    <td class='col-8'>
+                        {% for option in dance_options %}
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" {% if loop.first %}checked{% endif %}
+                                                                                                                            {% if loop.last %} id="dance_direct" {% endif %}>{{option.disp}}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="custom-file mb-3">
+                            <input type="file" class="custom-file-input" id="dance_upload" name="dance_upload" disabled>
+                            <label class="custom-file-label" for="dance_upload">춤 직접 업로드</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-6">
+            <table class="table" style="border:3px double #000;">
+                <tr>
+                    <td class='col-4'> <strong>사용자 360˚ 영상 :</strong> </td>
+                    <td class='col-8'>    
+                        {% for option in character_options %}
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="character_option" value="{{option.val}}" {% if loop.first %}checked{% endif %}
+                                                                                                                                {% if loop.last %} id="character_direct" {% endif %}>{{option.disp}}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="custom-file mb-3">
+                            <input type = "file" class="custom-file-input" id = "character_upload" name = "character_upload" disabled>
+                            <label class="custom-file-label" for="character_video">모델 직접 업로드</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
-</div>
+    <div>
+        <td> <button type="submit" class="btn btn-primary mr-2">제출</button> </td>
+    </div>
+</form>
+
 {% endblock %}
 
 {% block additional_body %}
-    <script>
-        $("#dance_video").on("change", function() {
-            var fileName1 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
-        });
-        $("#user_dance").on("change", function() {
-            var fileName2 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
-        });
-    </script>  
+<script>
+    $("#dance_upload").on("change", function() {
+        var fileName1 = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
+    });
+    $("#dance_direct").on("change", function() {
+        var condition = $("#dance_upload").prop("disabled");
+        $("#dance_upload").prop("disabled", condition ? false : true);
+    });
+
+
+    $("#character_upload").on("change", function() {
+        var fileName2 = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
+    });
+    $("#character_direct").on("change", function() {
+        var condition = $("#character_upload").prop("disabled");
+        $("#character_upload").prop("disabled", condition ? false : true);
+    });
+
+</script> 
 {% endblock %}
