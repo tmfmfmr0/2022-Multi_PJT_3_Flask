@@ -5,18 +5,18 @@
 {% endblock %}
 
 {% block content %}
-<form action="/menu2" method="POST" enctype="multipart/form-data" class="mt-3 ml-3 mr-3">
+<form action="/menu2" method="POST" enctype="multipart/form-data" class="mt-3 ml-5 mr-5">
     <dic class='row justify-content-center'>
         <div class="col-6">
             <table class="table" style="border:3px double #000;">
                 <tr>
-                    <td class='col-4'> <strong>적용할 춤 영상 : </strong> </td>
+                    <td class='col-4'> <strong>기준 영상 : </strong> </td>
                     <td class='col-8'>
                         {% for option in dance_options %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" {% if loop.first %}checked{% endif %}
-                                                                                                                            {% if loop.last %} id="dance_direct" {% endif %}>{{option.disp}}
+                                                                                                                        {% if loop.last %} id="dance_direct" {% endif %}>{{option.disp}}
                             </label>
                         </div>
                         {% endfor %}
@@ -26,7 +26,7 @@
                     <td colspan="3">
                         <div class="custom-file mb-3">
                             <input type="file" class="custom-file-input" id="dance_upload" name="dance_upload" disabled>
-                            <label class="custom-file-label" for="dance_upload">춤 직접 업로드</label>
+                            <label class="custom-file-label" for="dance_upload">기준 영상 선택</label>
                         </div>
                     </td>
                 </tr>
@@ -35,7 +35,7 @@
         <div class="col-6">
             <table class="table" style="border:3px double #000;">
                 <tr>
-                    <td class='col-4'> <strong>사용자 360˚ 영상 :</strong> </td>
+                    <td class='col-4'> <strong>사용자 춤 영상 :</strong> </td>
                     <td class='col-8'>    
                         {% for option in character_options %}
                         <div class="form-check-inline">
@@ -51,7 +51,7 @@
                     <td colspan="3">
                         <div class="custom-file mb-3">
                             <input type = "file" class="custom-file-input" id = "character_upload" name = "character_upload" disabled>
-                            <label class="custom-file-label" for="character_video">모델 직접 업로드</label>
+                            <label class="custom-file-label" for="character_video">업로드 or 녹화(미구현)</label>
                         </div>
                     </td>
                 </tr>
@@ -62,7 +62,6 @@
         <td> <button type="submit" class="btn btn-primary mr-2">제출</button> </td>
     </div>
 </form>
-
 {% endblock %}
 
 {% block additional_body %}
