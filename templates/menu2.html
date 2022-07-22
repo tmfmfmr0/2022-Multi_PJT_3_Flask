@@ -15,7 +15,8 @@
                     {% for option in dance_options %}
                     <div class="form-check-inline">
                         <label class='form-check-label'>
-                            <input type="radio" class="form-check-input" name="dance" value="{{option.val}}" {% if loop.first %}checked{% endif %}>{{option.disp}}
+                            <input type="radio" class="form-check-input" name="dance_selection" value="{{option.val}}" {% if loop.first %}checked{% endif %}
+                                                                                                                        {% if loop.last %} id="dance_direct" {% endif %}>{{option.disp}}
                         </label>
                     </div>
                     {% endfor %}
@@ -24,8 +25,8 @@
             <tr>
                 <td colspan="3">
                     <div class="custom-file mb-3">
-                        <input type = "file" class="custom-file-input" id = "dance" name = "dance" />
-                        <label class="custom-file-label" for="dance">직접 추가</label>
+                        <input type = "file" class="custom-file-input" id="dance_upload" name="dance_upload" disabled>
+                        <label class="custom-file-label" for="dance_upload">직접 추가</label>
                     </div>
                 </td>
             </tr>
@@ -36,7 +37,8 @@
                     {% for option in character_options %}
                     <div class="form-check-inline">
                         <label class='form-check-label'>
-                            <input type="radio" class="form-check-input" name="character" value="{{option.val}}" {% if loop.first %}checked{% endif %}>{{option.disp}}
+                            <input type="radio" class="form-check-input" name="character_selection" value="{{option.val}}" {% if loop.first %}checked{% endif %}
+                                                                                                                            {% if loop.last %} id="character_direct" {% endif %}>{{option.disp}}
                         </label>
                     </div>
                     {% endfor %}
@@ -45,7 +47,7 @@
             <tr>
                 <td colspan="3">
                     <div class="custom-file mb-3">
-                        <input type = "file" class="custom-file-input" id = "character" name = "character" />
+                        <input type = "file" class="custom-file-input" id = "character_upload" name = "character_upload" disabled>
                         <label class="custom-file-label" for="character">모델 직접 추가, 아니면 녹화</label>
                     </div>
                 </td>
@@ -57,7 +59,8 @@
                     {% for option in background_options %}
                         <div class="form-check-inline">
                             <label class='form-check-label'>
-                                <input type="radio" class="form-check-input" name="background" value="{{option.val}}" {% if loop.first %}checked{% endif %}>{{option.disp}}
+                                <input type="radio" class="form-check-input" name="background_selection" value="{{option.val}}" {% if loop.first %}checked{% endif %}
+                                                                                                                                {% if loop.last %} id="background_direct" {% endif %}>{{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
@@ -66,7 +69,7 @@
             <tr>
                 <td colspan="3">
                     <div class="custom-file">
-                        <input type = "file" class="custom-file-input" id = "background" name = "background" />
+                        <input type = "file" class="custom-file-input" id = "background_upload" name = "background_upload" disabled>
                         <label class="custom-file-label" for="background">배경 직접 추가</label>
                     </div>
                 </td>
@@ -88,17 +91,33 @@
 
 {% block additional_body %}
     <script>
-        $("#dance_video").on("change", function() {
+        $("#dance_upload").on("change", function() {
             var fileName1 = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
         });
-        $("#character360_images").on("change", function() {
+        $("#dance_direct").on("change", function() {
+            var condition = $("#dance_upload").prop("disabled");
+            $("#dance_upload").prop("disabled", condition ? false : true);
+        });
+
+
+        $("#character_upload").on("change", function() {
             var fileName2 = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
         });
-        $("#background_image").on("change", function() {
+        $("#character_direct").on("change", function() {
+            var condition = $("#character_upload").prop("disabled");
+            $("#character_upload").prop("disabled", condition ? false : true);
+        });
+
+
+        $("#background_upload").on("change", function() {
             var fileName3 = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName3);
+        });
+        $("#background_direct").on("change", function() {
+            var condition = $("#background_upload").prop("disabled");
+            $("#background_upload").prop("disabled", condition ? false : true);
         });
 
     </script>  

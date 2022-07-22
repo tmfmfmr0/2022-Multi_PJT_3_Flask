@@ -55,16 +55,18 @@ def menu2():
             {'disp':'기본1', 'val':'basic2'},
             {'disp':'기본2', 'val':'basic2'},
             {'disp':'직접녹화', 'val':'record_vid'},
-            {'disp':'직접추가', 'val':'direct3'}
+            {'disp':'직접추가', 'val':'direct2'}
         ]
         background_options = [
             {'disp':'기본', 'val':'basic'},
             {'disp':'화려함', 'val':'fancy'},
-            {'disp':'직접추가', 'val':'direct2'}
+            {'disp':'직접추가', 'val':'direct3'}
         ]
         
-        return render_template('menu2.html', menu=menu, dance_options=dance_options,
-                               background_options=background_options, character_options=character_options)
+        return render_template('menu2.html', menu=menu, 
+                                dance_options=dance_options,
+                                background_options=background_options, 
+                                character_options=character_options)
     else:
         
         #dance_video = request.form['']
