@@ -1,12 +1,16 @@
 from flask import Flask, redirect, render_template, request, send_file
 from flask import current_app
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 from werkzeug.utils import secure_filename
-import os
+import os, math, pandas as pd, numpy as np, matplotlib.pyplot as plt
 
 app = Flask(__name__)
+
+
+path_dance = './static/dance'
+path_user_dance = './static/user_dance'
+path_user_360 = './static/user_360'
+path_background = './static/background'
+
 
 @app.route('/')
 def index():
@@ -14,81 +18,91 @@ def index():
 
     return render_template('index.html', menu=menu)
 
+
 # 춤 일치도 분석
 @app.route('/menu1', methods=['GET', 'POST'])
 def menu1():
     menu = {'home': 0, 'menu1': 1, 'menu2': 0}
+    
     if request.method == 'GET' :
-        return render_template('menu1.html', menu=menu)
-    else :
-        # 변수1 = request.form['변수1']
-        # 변수2 = request.form['변수2']
-        # ...
-        # 사용자함수(변수1, 변수2, ...)
-        
-        # return render_template('menu2_res.html', 변수1=, 변수2=, ...)
-        return render_template('menu1.html', menu=menu)
+        # 저장되어 있는 파일 목록 가져오기
+        list_dance = os.listdir(path_dance)
+        list_user_dance = os.listdir(path_user_dance)
+        # 리스트에 딕셔너리 형식으로 저장되어 있는 파일 목록 넣기
+        dance_options, user_dance_options = [], []
+        for i in range(len(list_dance)):
+            dance_options.append({'disp': list_dance[i][:-4] , 'val':list_dance[i] })
+        for i in range(len(list_user_dance)):
+            user_dance_options.append({'disp': list_user_dance[i][:-4] , 'val':list_user_dance[i] }) 
+        dance_options.append({'disp': '직접추가', 'val':'direct1'})
+        user_dance_options.append({'disp': '직접추가', 'val':'direct2'})
+
+        return render_template('menu1.html', menu=menu, dance_options=dance_options, 
+                                user_dance_options=user_dance_options)
+    
+    else :    # request.method == 'POST'
+
+        return render_template('menu1_res.html', menu=menu)
+
 
 # 춤 입히기
 @app.route('/menu2', methods=['GET', 'POST'])
 def menu2():
     menu = {'home': 0, 'menu1': 0, 'menu2': 1}
-    # dance_video = './src_ref/dance/*'
-    # character_images = './src_ref/character/*'
-    # background_image = './src_ref/background/*'
+    
     if request.method == 'GET':
-        dance_options = [
-            {'disp':'BTS-Dynamite', 'val':'dynamite'},
-            {'disp':'SOF-Hey mama', 'val':'heymama'},
-            {'disp':'Aespa-Girls', 'val':'girls'},
-            {'disp':'PSY-강남스타일', 'val':'gangnam'},
-            {'disp':'직접선택', 'val':'direct1'}
-        ]
-        character_options = [
-            {'disp':'기본1', 'val':'basic1'},
-            {'disp':'기본2', 'val':'basic2'},
-            {'disp':'직접선택', 'val':'direct2'}
-        ]
-        background_options = [
-            {'disp':'기본', 'val':'basic'},
-            {'disp':'화려함', 'val':'fancy'},
-            {'disp':'직접선택', 'val':'direct3'}
-        ]
+        # 저장되어 있는 파일 목록 가져오기
+        list_dance = os.listdir(path_dance)
+        list_user_360 = os.listdir(path_user_360)
+        list_background = os.listdir(path_background)
+        # 리스트에 딕셔너리 형식으로 저장되어 있는 파일 목록 넣기
+        dance_options, user_360_options, background_options = [], [], []
+        for i in range(len(list_dance)):
+            dance_options.append({'disp': list_dance[i][:-4] , 'val':list_dance[i] })
+        for i in range(len(list_user_360)):
+            user_360_options.append({'disp': list_user_360[i][:-4] , 'val':list_user_360[i] })
+        for i in range(len(list_background)):
+            background_options.append({'disp': list_background[i][:-4] , 'val':list_background[i] })
+        dance_options.append({'disp': '직접추가', 'val':'direct1'})
+        user_360_options.append({'disp': '직접추가', 'val':'direct2'})
+        background_options.append({'disp': '직접추가', 'val':'direct3'})
+
         return render_template('menu2.html', menu=menu, dance_options=dance_options,
-                                character_options=character_options, background_options=background_options)
-    else:
+                                user_360_options=user_360_options, 
+                                background_options=background_options)
+        
+    else:    # request.method == 'POST'
         dance_options = request.form['dance_option']
-        if not os.path.exists(os.path.join(current_app.root_path, 'static/upload')):
-            os.makedirs(os.path.join(current_app.root_path, 'static/upload'))
+        if not os.path.exists(os.path.join(current_app.root_path, 'static/dance')):
+            os.makedirs(os.path.join(current_app.root_path, 'static/dance'))
         if dance_options == 'direct1':
             f_mp4 = request.files['dance_upload']
-            file_mp4 = os.path.join(current_app.root_path, 'static/upload/') + f_mp4.filename
+            file_mp4 = os.path.join(current_app.root_path, 'static/dance/') + f_mp4.filename
             f_mp4.save(file_mp4)
         else:
             file_mp4 = os.path.join(current_app.root_path, 'static/dance/') + dance_options + '.mp4'
 
-        character_options = request.form['character_option']
-        if not os.path.exists(os.path.join(current_app.root_path, 'static/upload')):
-            os.makedirs(os.path.join(current_app.root_path, 'static/upload'))
-        if character_options == 'direct2':
-            f_cha_mp4 = request.files['character_upload']
-            file_cha_mp4 = os.path.join(current_app.root_path, 'static/upload/') + f_cha_mp4.filename
+        user_360_options = request.form['user_360_option']
+        if not os.path.exists(os.path.join(current_app.root_path, 'static/user_360')):
+            os.makedirs(os.path.join(current_app.root_path, 'static/user_360'))
+        if user_360_options == 'direct2':
+            f_cha_mp4 = request.files['user_360_upload']
+            file_cha_mp4 = os.path.join(current_app.root_path, 'static/user_360/') + f_cha_mp4.filename
             f_cha_mp4.save(file_cha_mp4)
         else:
-            file_cha_mp4 = os.path.join(current_app.root_path, 'static/character/') + character_options + '.mp4'
+            file_cha_mp4 = os.path.join(current_app.root_path, 'static/user_360/') + user_360_options + '.mp4'
             
         background_options = request.form['background_option']
-        if not os.path.exists(os.path.join(current_app.root_path, 'static/upload')):
-            os.makedirs(os.path.join(current_app.root_path, 'static/upload'))
+        if not os.path.exists(os.path.join(current_app.root_path, 'static/background')):
+            os.makedirs(os.path.join(current_app.root_path, 'static/background'))
         if background_options == 'direct3':
             bg_png = request.files['background_upload']
-            file_bg = os.path.join(current_app.root_path, 'static/upload/') + bg_png.filename
+            file_bg = os.path.join(current_app.root_path, 'static/background/') + bg_png.filename
             bg_png.save(file_bg)
         else:
-            file_bg = os.path.join(current_app.root_path, 'static/character/') + background_options + '.png'
+            file_bg = os.path.join(current_app.root_path, 'static/background/') + background_options + '.png'
             
-        return redirect('/menu2', menu=menu)
-    
+        return render_template('/menu2_res.html', menu=menu)
 
 
 if __name__ == '__main__':
