@@ -5,7 +5,6 @@ import os, math, pandas as pd, numpy as np, matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
-
 path_dance = './static/dance'
 path_user_dance = './static/user_dance'
 path_user_360 = './static/user_360'

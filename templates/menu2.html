@@ -25,16 +25,17 @@
                 <tr>
                     <td colspan="3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="dance_upload" name="dance_upload" disabled>
+                            <input type="file" class="custom-file-input" id="dance_upload" name="dance_upload" accept="video/*" disabled>
                             <label class="custom-file-label" for="dance_upload">춤 영상 업로드</label>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div>
-                            썸네일 띄우기
-                        </div>
+                        <strong>선택된 춤 영상 :</strong>
+                    </td>
+                    <td>
+                        영상 표시
                     </td>
                 </tr>
             </table>
@@ -57,16 +58,17 @@
                 <tr>
                     <td colspan="3">
                         <div class="custom-file">
-                            <input type = "file" class="custom-file-input" id="user_360_upload" name="user_360_upload" disabled>
+                            <input type = "file" class="custom-file-input" id="user_360_upload" name="user_360_upload" accept="video/*" disabled>
                             <label class="custom-file-label" for="user_360_upload">모델 360˚ 영상 업로드</label>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div>
-                            썸네일 띄우기
-                        </div>
+                        <strong>선택된 모델 360˚ 영상 :</strong>
+                    </td>
+                    <td>
+                        모델 360˚ 영상
                     </td>
                 </tr>
             </table>
@@ -123,7 +125,6 @@
         $("#dance_upload").prop("disabled", condition ? false : true);
     });
 
-
     $("#user_360_upload").on("change", function() {
         var fileName2 = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
@@ -133,7 +134,6 @@
         $("#user_360_upload").prop("disabled", condition ? false : true);
     });
 
-
     $("#background_upload").on("change", function() {
         var fileName3 = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName3);
@@ -142,7 +142,6 @@
         var condition = $("#background_upload").prop("disabled");
         $("#background_upload").prop("disabled", condition ? false : true);
     });
-
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -155,8 +154,8 @@
           document.getElementById('preview').src = "";
         }
       }
-      
 
+    
 
 </script> 
 {% endblock %}

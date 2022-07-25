@@ -25,7 +25,7 @@
                 <tr>
                     <td colspan="3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="dance_upload" name="dance_upload" disabled>
+                            <input type="file" class="custom-file-input" id="dance_upload" name="dance_upload" accept="video/*" disabled>
                             <label class="custom-file-label" for="dance_upload">기준 춤 영상 업로드</label>
                         </div>
                     </td>
@@ -56,8 +56,17 @@
                 <tr>
                     <td colspan="3">
                         <div class="custom-file">
-                            <input type = "file" class="custom-file-input" id = "user_dance_upload" name = "user_dance_upload" disabled>
+                            <input type = "file" class="custom-file-input" id = "user_dance_upload" name = "user_dance_upload" accept="video/*" disabled>
                             <label class="custom-file-label" for="user_dance_upload">사용자 춤 영상 업로드 or 녹화(미구현)</label>
+                        </div>
+                    </td> 
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div class="button_box">
+                            <button type="button" class="btn btn-danger mr-2" id="record">녹화</button>
+                            <span id="cam" class=""></span>
+                            <button type="button" class="btn btn-dark disabled" id="stop">정지</button>
                         </div>
                     </td>
                 </tr>
@@ -78,6 +87,7 @@
 {% endblock %}
 
 {% block additional_body %}
+<script src="{{url_for('static', filename='js/video.js', q=21)}}"></script> 
 <script>
     $("#dance_upload").on("change", function() {
         var fileName1 = $(this).val().split("\\").pop();
@@ -96,8 +106,6 @@
         var condition = $("#user_dance_upload").prop("disabled");
         $("#user_dance_upload").prop("disabled", condition ? false : true);
     });
-
-
 
 
 </script> 
