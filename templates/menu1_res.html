@@ -1,21 +1,37 @@
 {% extends "base.html" %}
 
 {% block subtitle %}
-<strong>춤 동작 일치도 분석 결과</strong>
+<strong>춤 동작 일치도 결과</strong>
 {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col">
-        <table class="table" style="font-family: NEXON Lv2 Gothic;">
+        <table class="table">
             <tr>
                 <td class="w-90 ml-5">
                     <iframe src="" width="800" height="500"></iframe>
                 </td>
+            <tr>
+                <td>
+                    {{menu}}
+                </td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: center;">
-                    <button class="btn btn-primary" onclick="location.href='/menu1'" style="background-color: rgb(8,32,64); font-family: NEXON Lv2 Gothic Bold;">재실행</button>
+                <td>
+                    {{dance_options}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{user_dance_options}}
+                </td>
+            </tr>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <button class="btn btn-primary" 
+                                onclick="location.href='/menu1'">재실행</button>
                 </td>
             </tr>
         </table>

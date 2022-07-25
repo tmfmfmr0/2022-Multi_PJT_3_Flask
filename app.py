@@ -28,7 +28,7 @@ def menu1():
         # 저장되어 있는 파일 목록 가져오기
         list_dance = os.listdir(path_dance)
         list_user_dance = os.listdir(path_user_dance)
-        # 리스트에 딕셔너리 형식으로 저장되어 있는 파일 목록 넣기
+        # 파일 목록을 리스트에 딕셔너리 형식으로 넣기
         dance_options, user_dance_options = [], []
         for i in range(len(list_dance)):
             dance_options.append({'disp': list_dance[i][:-4] , 'val':list_dance[i] })
@@ -55,7 +55,7 @@ def menu2():
         list_dance = os.listdir(path_dance)
         list_user_360 = os.listdir(path_user_360)
         list_background = os.listdir(path_background)
-        # 리스트에 딕셔너리 형식으로 저장되어 있는 파일 목록 넣기
+        # 파일 목록을 리스트에 딕셔너리 형식으로 넣기
         dance_options, user_360_options, background_options = [], [], []
         for i in range(len(list_dance)):
             dance_options.append({'disp': list_dance[i][:-4] , 'val':list_dance[i] })
