@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+<strong></strong>
+{% endblock %}
+
+{% block content %}
+<dic class='row justify-content-center mt-3 ml-4 mr-4'>
+    <div class="col-4" style="padding-left:10px; padding-right:5px;">
+        <table class="table" style="border:3px double #000;">
+            <tr>
+                <td class='row justify-content-center'> <strong>적용할 춤 영상</strong> </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        썸네일 띄우기
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-4" style="padding-left:5px; padding-right:5px;">
+        <table class="table" style="border:3px double #000;">
+            <tr>
+                <td class='row justify-content-center'> <strong>사용자 춤 영상</strong> </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>
+                        썸네일 띄우기
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div colspan="2" style="text-align:center;">
+        <button class="btn btn-primary" 
+                    onclick="location.href='/menu1'">재선택</button>
+        <button class="btn btn-primary" 
+                    onclick="location.href='/menu1_res'">제출</button>
+    </div>
+</div>
+{% endblock %}

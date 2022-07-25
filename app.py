@@ -41,8 +41,27 @@ def menu1():
                                 user_dance_options=user_dance_options)
     
     else :    # request.method == 'POST'
+        dance_options = request.form['dance_option']
+        if not os.path.exists(os.path.join(current_app.root_path, 'static/dance')):
+            os.makedirs(os.path.join(current_app.root_path, 'static/dance'))
+        if dance_options == 'direct1':
+            f_mp4 = request.files['dance_upload']
+            file_mp4 = os.path.join(current_app.root_path, 'static/dance/') + f_mp4.filename
+            f_mp4.save(file_mp4)
+        else:
+            file_mp4 = os.path.join(current_app.root_path, 'static/dance/') + dance_options + '.mp4'
 
-        return render_template('menu1_res.html', menu=menu)
+        user_dance_options = request.form['user_dance_option']
+        if not os.path.exists(os.path.join(current_app.root_path, 'static/user_dance')):
+            os.makedirs(os.path.join(current_app.root_path, 'static/user_dance'))
+        if user_dance_options == 'direct1':
+            f1_mp4 = request.files['user_dance_upload']
+            file1_mp4 = os.path.join(current_app.root_path, 'static/user_dance/') + f1_mp4.filename
+            f1_mp4.save(file1_mp4)
+        else:
+            file1_mp4 = os.path.join(current_app.root_path, 'static/user_dance/') + user_dance_options + '.mp4'
+            
+        return render_template('/menu1_res.html', menu=menu)
 
 
 # 춤 입히기
