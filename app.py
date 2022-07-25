@@ -44,23 +44,23 @@ def menu1():
         if not os.path.exists(os.path.join(current_app.root_path, 'static/dance')):
             os.makedirs(os.path.join(current_app.root_path, 'static/dance'))
         if dance_options == 'direct1':
-            f_mp4 = request.files['dance_upload']
-            file_mp4 = os.path.join(current_app.root_path, 'static/dance/') + f_mp4.filename
-            f_mp4.save(file_mp4)
+            dance_mp4 = request.files['dance_upload']
+            dance_file = os.path.join(current_app.root_path, 'static/dance/') + dance_mp4.filename
+            dance_mp4.save(dance_file)
         else:
-            file_mp4 = os.path.join(current_app.root_path, 'static/dance/') + dance_options + '.mp4'
+            dance_file = os.path.join(current_app.root_path, 'static/dance/') + dance_options + '.mp4'
 
         user_dance_options = request.form['user_dance_option']
         if not os.path.exists(os.path.join(current_app.root_path, 'static/user_dance')):
             os.makedirs(os.path.join(current_app.root_path, 'static/user_dance'))
         if user_dance_options == 'direct1':
-            f1_mp4 = request.files['user_dance_upload']
-            file1_mp4 = os.path.join(current_app.root_path, 'static/user_dance/') + f1_mp4.filename
-            f1_mp4.save(file1_mp4)
+            user_dance_mp4 = request.files['user_dance_upload']
+            user_dance_file = os.path.join(current_app.root_path, 'static/user_dance/') + user_dance_mp4.filename
+            user_dance_mp4.save(user_dance_file)
         else:
-            file1_mp4 = os.path.join(current_app.root_path, 'static/user_dance/') + user_dance_options + '.mp4'
+            user_dance_file = os.path.join(current_app.root_path, 'static/user_dance/') + user_dance_options + '.mp4'
             
-        return render_template('/menu1_res.html', menu=menu)
+        return render_template('/menu1_res.html', menu=menu, dance_file=dance_file, user_dance_file=user_dance_file)
 
 
 # 춤 입히기
@@ -94,33 +94,33 @@ def menu2():
         if not os.path.exists(os.path.join(current_app.root_path, 'static/dance')):
             os.makedirs(os.path.join(current_app.root_path, 'static/dance'))
         if dance_options == 'direct1':
-            f_mp4 = request.files['dance_upload']
-            file_mp4 = os.path.join(current_app.root_path, 'static/dance/') + f_mp4.filename
-            f_mp4.save(file_mp4)
+            dance_mp4 = request.files['dance_upload']
+            dance_file = os.path.join(current_app.root_path, 'static/dance/') + dance_mp4.filename
+            dance_mp4.save(dance_file)
         else:
-            file_mp4 = os.path.join(current_app.root_path, 'static/dance/') + dance_options + '.mp4'
+            dance_file = os.path.join(current_app.root_path, 'static/dance/') + dance_options + '.mp4'
 
         user_360_options = request.form['user_360_option']
         if not os.path.exists(os.path.join(current_app.root_path, 'static/user_360')):
             os.makedirs(os.path.join(current_app.root_path, 'static/user_360'))
         if user_360_options == 'direct2':
-            f_cha_mp4 = request.files['user_360_upload']
-            file_cha_mp4 = os.path.join(current_app.root_path, 'static/user_360/') + f_cha_mp4.filename
-            f_cha_mp4.save(file_cha_mp4)
+            user_360_mp4 = request.files['user_360_upload']
+            user_360_file = os.path.join(current_app.root_path, 'static/user_360/') + user_360_mp4.filename
+            user_360_mp4.save(user_360_file)
         else:
-            file_cha_mp4 = os.path.join(current_app.root_path, 'static/user_360/') + user_360_options + '.mp4'
+            user_360_file = os.path.join(current_app.root_path, 'static/user_360/') + user_360_options + '.mp4'
             
         background_options = request.form['background_option']
         if not os.path.exists(os.path.join(current_app.root_path, 'static/background')):
             os.makedirs(os.path.join(current_app.root_path, 'static/background'))
         if background_options == 'direct3':
             bg_png = request.files['background_upload']
-            file_bg = os.path.join(current_app.root_path, 'static/background/') + bg_png.filename
-            bg_png.save(file_bg)
+            bg_file = os.path.join(current_app.root_path, 'static/background/') + bg_png.filename
+            bg_png.save(bg_file)
         else:
-            file_bg = os.path.join(current_app.root_path, 'static/background/') + background_options + '.png'
+            bg_file = os.path.join(current_app.root_path, 'static/background/') + background_options + '.png'
             
-        return render_template('/menu2_res.html', menu=menu)
+        return render_template('/menu2_res.html', menu=menu, dance_file=dance_file, user_360_file=user_360_file, bg_file=bg_file)
 
 
 if __name__ == '__main__':
