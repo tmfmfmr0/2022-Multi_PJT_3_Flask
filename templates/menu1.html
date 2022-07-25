@@ -6,44 +6,39 @@
 
 {% block content %}
 <form action="/menu1" method="POST" enctype="multipart/form-data">
-    <dic class='row justify-content-center mt-3 ml-4 mr-4'>
-        <div class="col-6" style="padding-left:10px; padding-right:5px;">
-            <table class="table" style="border:3px double #000;">
-                <tr>
-                    <td class='col-4'> <strong>기준 춤 영상 : </strong> </td>
-                    <td class='col-8'>
-                        {% for option in dance_options %}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card text-white bg-secondary mt-4 ml-4 mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">적용할 춤 영상</h5>
+                    <p class="card-text">기준이 될 춤을 선택하세요</p>
+                    {% for option in dance_options %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
                                                                                                                     {% if loop.last %} id="dance_direct" {% endif %}> {{option.disp}}
                             </label>
                         </div>
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="dance_upload" name="dance_upload" accept="video/*" disabled>
-                            <label class="custom-file-label" for="dance_upload">기준 춤 영상 업로드</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div id="image_container"></div>
-                        <video preload="metadata" src="vidlink.mp4#t=0.5"></video>
-                    </td>
-                </tr>
-            </table>
+                    {% endfor %}
+                    <div class="custom-file mt-3">
+                        <input type="file" class="custom-file-input" id="dance_upload" name="dance_upload" accept="video/*" disabled>
+                        <label class="custom-file-label" for="dance_upload">춤 영상 업로드</label>
+                    </div>
+                    <div class='mt-3'>
+                        <strong>선택된 춤 영상 :</strong>
+                    </div>
+                    <div class='mt-3 mb-3'>
+                        춤 영상 표시
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-6" style="padding-left:5px; padding-right:10px;">
-            <table class="table" style="border:3px double #000;">
-                <tr>
-                    <td class='col-4'> <strong>사용자 춤 영상 :</strong> </td>
-                    <td class='col-8'>    
-                        {% for option in user_dance_options %}
+        <div class="col-sm-6">
+            <div class="card text-white bg-secondary mt-4 mr-4 mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">사용자 춤 영상</h5>
+                    <p class="card-text">일치도를 계산할 춤 영상을 선택하세요</p>
+                    {% for option in user_dance_options %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="user_dance_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
@@ -51,37 +46,29 @@
                             </label>
                         </div>
                         {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <div class="custom-file">
-                            <input type = "file" class="custom-file-input" id = "user_dance_upload" name = "user_dance_upload" accept="video/*" disabled>
-                            <label class="custom-file-label" for="user_dance_upload">사용자 춤 영상 업로드 or 녹화(미구현)</label>
-                        </div>
-                    </td> 
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <div class="button_box">
-                            <button type="button" class="btn btn-danger mr-2" id="record">녹화</button>
-                            <span id="cam" class=""></span>
-                            <button type="button" class="btn btn-dark disabled" id="stop">정지</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div>
-                            썸네일 띄우기
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                    <div class="custom-file">
+                        <input type = "file" class="custom-file-input" id = "user_dance_upload" name = "user_dance_upload" accept="video/*" disabled>
+                        <label class="custom-file-label" for="user_dance_upload">사용자 춤 영상 업로드 or 녹화(미구현)</label>
+                    </div>
+                    <div class='mt-3'>
+                        <strong>선택된 춤 영상 :</strong>
+                    </div>
+                    <div class="button_box">
+                        <button type="button" class="btn btn-danger mr-2" id="record">녹화</button>
+                        <span id="cam" class=""></span>
+                        <button type="button" class="btn btn-dark disabled" id="stop">정지</button>
+                    </div>
+                    <div class='mt-3 mb-3'>
+                        춤 영상 표시
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div>
-        <td> <button type="submit" class="btn btn-primary mr-2">제출</button> </td>
+    <div class='row justify-content-center'>
+        <div>
+            <button type="submit" class="btn btn-primary mr-2">제출</button>
+        </div>
     </div>
 </form>
 {% endblock %}
