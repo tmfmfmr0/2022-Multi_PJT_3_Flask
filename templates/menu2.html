@@ -68,7 +68,7 @@
                             <div class="form-check-inline">
                                 <label class="form-check-label">
                                     <input type="radio" class="form-check-input" name="background_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
-                                                                                                                         {% if loop.last %} id="background_direct" {% endif %}> {{option.disp}}
+                                                                                                                        {% if loop.last %} id="background_direct" {% endif %}> {{option.disp}}
                                 </label>
                             </div>
                     {% endfor %}
@@ -126,38 +126,50 @@
 
     function readURL1(input) {
         if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
             document.getElementById('preview1').src = e.target.result;
-          };
-          reader.readAsDataURL(input.files[0]);
+            };
+            reader.readAsDataURL(input.files[0]);
         } else {
-          document.getElementById('preview1').src = "";
+            document.getElementById('preview1').src = "";
         }
-      }
-      function readURL2(input) {
+    }
+    function readURL2(input) {
         if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
             document.getElementById('preview2').src = e.target.result;
-          };
-          reader.readAsDataURL(input.files[0]);
+            };
+            reader.readAsDataURL(input.files[0]);
         } else {
-          document.getElementById('preview2').src = "";
+            document.getElementById('preview2').src = "";
         }
-      }
-      function readURL3(input) {
+        }
+    function readURL3(input) {
         if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
             document.getElementById('preview3').src = e.target.result;
-          };
-          reader.readAsDataURL(input.files[0]);
+            };
+            reader.readAsDataURL(input.files[0]);
         } else {
-          document.getElementById('preview3').src = "";
+            document.getElementById('preview3').src = "";
         }
-      }
+    }
 
+    $("#imageFile").on("change", function(event) {
+
+        var file = event.target.files[0];
+    
+        var reader = new FileReader(); 
+        reader.onload = function(e) {
+    
+            $("#preview").attr("src", e.target.result);
+        }
+    
+        reader.readAsDataURL(file);
+    });
 
 </script> 
 {% endblock %}

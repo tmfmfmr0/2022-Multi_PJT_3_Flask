@@ -8,7 +8,7 @@
 <form action="/menu1" method="POST" enctype="multipart/form-data">
     <div class="row">
         <div class="col-sm-6">
-            <div class="card text-white bg-secondary mt-4 ml-4 mb-4 h-80">
+            <div class="card text-white bg-secondary mt-4 ml-4 mb-4">
                 <div class="card-body">
                     <h5 class="card-title">적용할 춤 영상</h5>
                     <p class="card-text">기준이 될 춤을 선택하세요</p>
@@ -16,7 +16,7 @@
                         <div class="form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
-                                                                                                                    {% if loop.last %} id="dance_direct" {% endif %}> {{option.disp}}
+                                                                                                                {% if loop.last %} id="dance_direct" {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="card text-white bg-secondary mt-4 mr-4 mb-4 h-80">
+            <div class="card text-white bg-secondary mt-4 mr-4 mb-4">
                 <div class="card-body">
                     <h5 class="card-title">사용자 춤 영상</h5>
                     <p class="card-text">일치도를 계산할 춤 영상을 선택하세요</p>
@@ -42,7 +42,7 @@
                         <div class="form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="user_dance_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
-                                                                                                                 {% if loop.last %} id="user_dance_direct" {% endif %}> {{option.disp}}
+                                                                                                                {% if loop.last %} id="user_dance_direct" {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
@@ -91,26 +91,26 @@
 
     function readURL1(input) {
         if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
             document.getElementById('preview1').src = e.target.result;
-          };
-          reader.readAsDataURL(input.files[0]);
+            };
+            reader.readAsDataURL(input.files[0]);
         } else {
-          document.getElementById('preview1').src = "";
+            document.getElementById('preview1').src = "";
         }
-      }
-      function readURL2(input) {
+    }
+    function readURL2(input) {
         if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
             document.getElementById('preview2').src = e.target.result;
-          };
-          reader.readAsDataURL(input.files[0]);
+            };
+            reader.readAsDataURL(input.files[0]);
         } else {
-          document.getElementById('preview2').src = "";
+            document.getElementById('preview2').src = "";
         }
-      }
+    }
 </script> 
 {% endblock %}
 
