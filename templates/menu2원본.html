@@ -6,7 +6,7 @@
 
 {% block content %}
 <form action="/menu2" method="POST" enctype="multipart/form-data">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-sm-4">
             <div class="card text-white bg-secondary mt-4 ml-4 mb-4 h-100">
                 <div class="card-body">
@@ -32,15 +32,13 @@
                         <strong>선택된 춤 영상 :</strong>
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
-                        <video id="preview1" style="width:100%; height:100%; no-repeat center center; background-size:cover;" controls autoplay>
-                            <source id="src1", src="">
-                        </video>
+                        <video id="preview1"></video>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card text-white bg-secondary mt-4 ml-4 mb-4 h-100">
+            <div class="card text-white bg-secondary mt-4 mb-4 h-100">
                 <div class="card-body">
                     <h5 class="card-title">사용자 360˚ 회전 영상</h5>
                     <p class="card-text">360˚ 회전하면서 녹화한 모델의 영상을 선택하세요</p>
@@ -64,15 +62,13 @@
                         <strong>선택된 모델 360˚ 영상 :</strong>
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
-                        <video id="preview2" style="width:100%; height:100%; no-repeat center center; background-size:cover;" controls autoplay>
-                            <source id="src2", src="">
-                        </video>
+                        <video id="preview2" style="height:300px; background:url('thumbnai2.jpg') no-repeat center center;background-size:cover;" ></video>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card text-white bg-secondary mt-4 ml-4 mr-4 mb-4 h-100">
+            <div class="card text-white bg-secondary mt-4 mr-4 mb-4 h-100">
                 <div class="card-body">
                     <h5 class="card-title">배경 사진</h5>
                     <p class="card-text">무대가 될 배경을 선택하세요</p>
@@ -89,7 +85,7 @@
                         </label>
                     </div>
                     <div class="custom-file mt-3">
-                        <input type="file" class="custom-file-input" id="background_upload" name="background_upload" accept="image/*" onchange="previewP(this);" disabled>
+                        <input type="file" class="custom-file-input" id="background_upload" name="background_upload" accept="image/*" onchange="readURL3(this);" disabled>
                         
                         <label class="custom-file-label" for="background_upload">배경 사진 업로드</label>
                     </div>
@@ -97,68 +93,83 @@
                         <strong>선택된 배경 사진 :</strong>
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
-                        <img id="preview3" style="width:100%; background:url('thumbnai3.jpg') no-repeat center center;background-size:cover;" >
+                        <img id="preview3" style="height:300px; background:url('thumbnai3.jpg') no-repeat center center;background-size:cover;" >
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class='row justify-content-center mt-5'>
         <div>
-            <button type="submit" class="btn btn-primary mt-5 mb-5 ">제출</button>
+            <button type="submit" class="btn btn-primary mr-2">제출</button>
         </div>
     </div>
 </form>
 {% endblock %}
 
 {% block additional_body %}
-    <script>
-        $("#dance_upload").on("change", function() {
-            var fileName1 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
-        });
-        $("#user_360_upload").on("change", function() {
-            var fileName2 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
-        });
-        $("#background_upload").on("change", function() {
-            var fileName3 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName3);
-        });
+<script>
+    $("#dance_upload").on("change", function() {
+        var fileName1 = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
+    });
+    $("#user_360_upload").on("change", function() {
+        var fileName2 = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
+    });
+    $("#background_upload").on("change", function() {
+        var fileName3 = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName3);
+    });
 
-        $("#dance_direct").on("click", function() {
-            var condition = $("#dance_upload").prop("disabled");
-            $("#dance_upload").prop("disabled", condition ? false : true);
-        });
-        $("#user_360_direct").on("click", function() {
-            var condition = $("#user_360_upload").prop("disabled");
-            $("#user_360_upload").prop("disabled", condition ? false : true);
-        });
-        $("#background_direct").on("click", function() {
-            var condition = $("#background_upload").prop("disabled");
-            $("#background_upload").prop("disabled", condition ? false : true);
-        });
+    $("#dance_direct").on("click", function() {
+        var condition = $("#dance_upload").prop("disabled");
+        $("#dance_upload").prop("disabled", condition ? false : true);
+    });
+    $("#user_360_direct").on("click", function() {
+        var condition = $("#user_360_upload").prop("disabled");
+        $("#user_360_upload").prop("disabled", condition ? false : true);
+    });
+    $("#background_direct").on("click", function() {
+        var condition = $("#background_upload").prop("disabled");
+        $("#background_upload").prop("disabled", condition ? false : true);
+    });
 
-        $("#dance_upload").on("change", function() {
-            const file = document.getElementById("dance_upload").files[0];
-            const videourl = URL.createObjectURL(file);
-            document.getElementById("preview1").setAttribute("src", videourl);
-            document.getElementById("preview1").play();
-        })
-        $("#user_360_upload").on("change", function() {
-            const file = document.getElementById("user_360_upload").files[0];
-            const videourl = URL.createObjectURL(file);
-            document.getElementById("preview2").setAttribute("src", videourl);
-            document.getElementById("preview2").play();
-        })
-        function previewP(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                document.getElementById('preview3').src = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                document.getElementById('preview3').src = "";
-            }
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+            document.getElementById('preview1').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview1').src = "";
         }
-    </script>
+    }
+    function readURL2(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+            document.getElementById('preview2').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview2').src = "";
+        }
+        }
+    function readURL3(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+            document.getElementById('preview3').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview3').src = "";
+        }
+    }
+
+
+
+</script> 
 {% endblock %}
