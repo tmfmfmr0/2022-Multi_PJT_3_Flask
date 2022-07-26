@@ -15,7 +15,8 @@
                     {% for option in dance_options %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="dance_option" id="dance_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}> {{option.disp}}
+                                <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
+                                                                                                                    {% if loop.last %} id="dance_direct" {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
@@ -40,7 +41,8 @@
                     {% for option in user_360_options %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="user_360_option" id="user_360_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}> {{option.disp}}
+                                <input type="radio" class="form-check-input" name="user_360_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
+                                                                                                                {% if loop.last %} id="user_360_direct" {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
@@ -65,7 +67,8 @@
                     {% for option in background_options %}
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="background_option" id="background_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}> {{option.disp}}
+                                    <input type="radio" class="form-check-input" name="background_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
+                                                                                                                        {% if loop.last %} id="background_direct" {% endif %}> {{option.disp}}
                                 </label>
                             </div>
                     {% endfor %}
@@ -98,7 +101,7 @@
         var fileName1 = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
     });
-    $("#dance_option").on("click", function() {
+    $("#dance_direct").on("click", function() {
         var condition = $("#dance_upload").prop("disabled");
         $("#dance_upload").prop("disabled", condition ? false : true);
     });
@@ -107,7 +110,7 @@
         var fileName2 = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
     });
-    $("#user_360_option").on("click", function() {
+    $("#user_360_direct").on("click", function() {
         var condition = $("#user_360_upload").prop("disabled");
         $("#user_360_upload").prop("disabled", condition ? false : true);
     });
@@ -116,7 +119,7 @@
         var fileName3 = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName3);
     });
-    $("#background_option").on("click", function() {
+    $("#background_direct").on("click", function() {
         var condition = $("#background_upload").prop("disabled");
         $("#background_upload").prop("disabled", condition ? false : true);
     });
@@ -155,18 +158,6 @@
         }
     }
 
-    $("#background_option").on("change", function(event) {
-
-        var file = event.target.files[0];
-    
-        var reader = new FileReader(); 
-        reader.onload = function(e) {
-    
-            $("#preview").attr("src", e.target.result);
-        }
-    
-        reader.readAsDataURL(file);
-    });
 
 </script> 
 {% endblock %}
