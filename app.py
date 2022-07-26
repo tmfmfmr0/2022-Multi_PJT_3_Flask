@@ -53,7 +53,7 @@ def menu1():
         user_dance_options = request.form['user_dance_option']
         if not os.path.exists(os.path.join(current_app.root_path, 'static/user_dance')):
             os.makedirs(os.path.join(current_app.root_path, 'static/user_dance'))
-        if user_dance_options == 'direct1':
+        if user_dance_options == 'direct2':
             user_dance_mp4 = request.files['user_dance_upload']
             user_dance_file = os.path.join(current_app.root_path, 'static/user_dance/') + user_dance_mp4.filename
             user_dance_mp4.save(user_dance_file)
