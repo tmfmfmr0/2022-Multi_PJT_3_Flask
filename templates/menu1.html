@@ -12,14 +12,18 @@
                 <div class="card-body">
                     <h5 class="card-title">적용할 춤 영상</h5>
                     <p class="card-text">기준이 될 춤을 선택하세요</p>
-                    {% for option in dance_options %}
+                    {% for option in dance_options[:-1] %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
-                                                                                                                {% if loop.last %} id="dance_direct" {% endif %}> {{option.disp}}
+                                <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" id="dance_select" {% if loop.first %} checked {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="dance_option" value="{{dance_options[-1].val}}" id="dance_direct"> {{dance_options[-1].disp}}
+                        </label>
+                    </div>
                     <div class="custom-file mt-3">
                         <input type="file" class="custom-file-input" id="dance_upload" name="dance_upload" accept="video/*" onchange="readURL1(this);" disabled>
                         <label class="custom-file-label" for="dance_upload">춤 영상 업로드</label>
@@ -38,14 +42,18 @@
                 <div class="card-body">
                     <h5 class="card-title">사용자 춤 영상</h5>
                     <p class="card-text">일치도를 계산할 춤 영상을 선택하세요</p>
-                    {% for option in user_dance_options %}
+                    {% for option in user_dance_options[:-1] %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="user_dance_option" value="{{option.val}}" {% if loop.first %} checked {% endif %}
-                                                                                                                {% if loop.last %} id="user_dance_direct" {% endif %}> {{option.disp}}
+                                <input type="radio" class="form-check-input" name="user_dance_option" value="{{option.val}}" id="user_dance_select" {% if loop.first %} checked {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="user_dance_option" value="{{user_dance_options[-1].val}}" id="user_dance_direct"> {{user_dance_options[-1].disp}}
+                        </label>
+                    </div>
                     <div class="custom-file mt-3">
                         <input type = "file" class="custom-file-input" id = "user_dance_upload" name = "user_dance_upload" accept="video/*" onchange="readURL2(this);" disabled>
                         <label class="custom-file-label" for="user_dance_upload">사용자 춤 영상 업로드</label>
