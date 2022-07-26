@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block subtitle %}
+    <strong>춤 동작 일치도</strong>
+{% endblock %}
+{% block content %}
+    <div class="row mt-5">
+        <div class="col-2"></div>
+        <div class="col-4">
+            <video controls autoplay src="{{dance_file}}" width="640px", height="360px" type="video/mp4"></video>
+        </div>
+        <div class="col-4">
+            <video controls autoplay src="{{user_dance_file}}" width="640px", height="360px" type="video/mp4"></video>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <div class="d-flex align-items-center">
+        <strong>프로그램 실행에 시간이 걸립니다.</strong>
+        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+    </div>
+    <form style="display: none" action="/menu1_res" method="POST" id="form">
+        <input type="hidden" name="dance_file" value="{{dance_file}}"/>
+        <input type="hidden" name="user_dance_file" value="{{user_dance_file}}"/>
+    </form>
+{% endblock %}
+{% block additional_body %}
+    <script>
+        window.onload = function() {
+            $("#form").submit();
+        }
+    </script>
+{% endblock %}

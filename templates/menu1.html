@@ -99,6 +99,13 @@
         $("#user_dance_upload").prop("disabled", condition ? false : true);
     });
 
+    $("#dance_select").on("change", function() {
+
+    })
+    $("#user_dance_select").on("change", function() {
+
+    })
+
     $("#dance_upload").on("change", function() {
         const file = document.getElementById("dance_upload").files[0];
         const videourl = URL.createObjectURL(file);

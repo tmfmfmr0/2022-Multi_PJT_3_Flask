@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block subtitle %}
-<strong>Impersonator</strong>
+<strong>동작 모방</strong>
 {% endblock %}
 
 {% block content %}
@@ -137,6 +137,19 @@
             $("#background_upload").prop("disabled", condition ? false : true);
         });
 
+        $("#dance_select").on("change", function(e) {
+            document.getElementById('src1').src = e.target.result;
+        })
+        $("#user_360_select").on("change", function(e) {
+            document.getElementById('src2').src = e.target.result;
+        })
+        $("#background_select").on("change", function(e) {
+            const file = document.getElementById("background_select").files[0];
+            const videourl = URL.createObjectURL(file);
+            document.getElementById("preview3").setAttribute("src", videourl);
+            document.getElementById("preview3").play();
+        })
+
         $("#dance_upload").on("change", function() {
             const file = document.getElementById("dance_upload").files[0];
             const videourl = URL.createObjectURL(file);
@@ -153,7 +166,7 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                document.getElementById('preview3').src = e.target.result;
+                    document.getElementById('preview3').src = e.target.result;
                 };
                 reader.readAsDataURL(input.files[0]);
             } else {
