@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, send_file
 from flask import current_app
 from utils import dance
+import cv2
 from werkzeug.utils import secure_filename
 import os, math, pandas as pd, numpy as np, matplotlib.pyplot as plt
 
@@ -14,7 +15,7 @@ path_background = './static/background'
 
 @app.route('/')
 def index():
-    menu = {'home': 1, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu2_res': 0}
+    menu = {'home': 1, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu1_proc': 0, 'video_rec_proc': 0, 'menu2_res': 0}
 
     return render_template('index.html', menu=menu)
 
@@ -22,7 +23,7 @@ def index():
 # 춤 일치도 분석
 @app.route('/menu1', methods=['GET', 'POST'])
 def menu1():
-    menu = {'home': 0, 'menu1': 1, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu2_res': 0}
+    menu = {'home': 0, 'menu1': 1, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu1_proc': 0, 'video_rec_proc': 0, 'menu2_res': 0}
     
     if request.method == 'GET' :
         # 저장되어 있는 파일 목록 가져오기
@@ -64,21 +65,17 @@ def menu1():
         return render_template('sim_spinner.html', menu=menu, dance_file=dance_file, user_dance_file=user_dance_file)
 
 # 일치도 결과화면
-@app.route('/menu1_res', methods=['POST'])
+@app.route('/menu1_res', methods=['GET', 'POST'])
 def menu1_res():
-    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 1, 'menu1_rec': 0, 'menu2_res': 0}
+    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 1, 'menu1_rec': 0, 'menu1_proc': 0, 'video_rec_proc': 0, 'menu2_res': 0}
     
-    dance_file = request.form['dance_file']
-    user_dance_file = request.form['user_dance_file']
     
-    sim = dance.make_result(dance_file, user_dance_file)
-    
-    return render_template('menu1_res.html', menu=menu, dance_file=dance_file, user_dance_file=user_dance_file, sim=sim)
+    return render_template('menu1_res.html', menu=menu)
 
 # 일치도 녹화화면
 @app.route('/menu1_rec', methods=['GET', 'POST'])
 def menu1_rec():
-    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 1, 'menu2_res': 0}
+    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 1, 'menu1_proc': 0, 'video_rec_proc': 0, 'menu2_res': 0}
     
     if request.method == 'GET' :
         # 저장되어 있는 파일 목록 가져오기
@@ -92,42 +89,67 @@ def menu1_rec():
         return render_template('menu1_rec.html', menu=menu, dance_options=dance_options)
 
     else :    # request.method == 'POST'
-        dance_options = request.form['dance_option']
-        if not os.path.exists(os.path.join(current_app.root_path, 'static/dance')):
-            os.makedirs(os.path.join(current_app.root_path, 'static/dance'))
-        if dance_options == 'direct1':
-            dance_mp4 = request.files['dance_upload']
-            dance_file = 'static/dance/' + dance_mp4.filename
-            dance_mp4.save(dance_file)
-        else:
-            dance_file = 'static/dance/' + dance_options
-
-
-        if not os.path.exists(os.path.join(current_app.root_path, 'static/user_dance')):
-            os.makedirs(os.path.join(current_app.root_path, 'static/user_dance'))
-
+        
         user_dance_mp4 = request.files['video_blob']
-        user_dance_file = 'static/user_dance/' + user_dance_mp4.filename
+        user_dance_file = 'static/user_dance_record/raw_video.avi'
         user_dance_mp4.save(user_dance_file)
         
-        return render_template('sim_spinner.html', menu=menu, dance_file=dance_file, user_dance_file=user_dance_file)
+        return '0'
     
-# 일치도 녹화화면에서 함수처리
-@app.route('/video_proc', methods=['POST'])
-def video_proc():
+@app.route('/video_rec_proc', methods=['POST'])
+def video_rec_proc():
+    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu1_proc': 0, 'video_rec_proc': 1, 'menu2_res': 0}
+    
+    raw_file = 'static/user_dance_record/raw_video.avi'
+    cap = cv2.VideoCapture(raw_file)
+    width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)   # 또는 cap.get(3)
+    height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # 또는 cap.get(4)
+    fps = cap.get(cv2.CAP_PROP_FPS)             # 또는 cap.get(5)
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')    # 코덱 정의, *'mp4v' == 'm', 'p', '4', 'v', 또는 *'DIVX'
+    out = cv2.VideoWriter('static/user_dance/user_rec_video.mp4', fourcc, fps, (int(width), int(height))) # VideoWriter 객체
+    while True:
+        ret, img = cap.read()
+        if ret:
+            out.write(cv2.flip(img, 1))     # 좌우 반전 시켜서 원 위치로 환원
+            cv2.waitKey(1)                 # 30 fps
+        else:
+            break
+
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
+    
+    dance_options = request.form['dance_option']
+    if not os.path.exists(os.path.join(current_app.root_path, 'static/dance')):
+        os.makedirs(os.path.join(current_app.root_path, 'static/dance'))
+    if dance_options == 'direct1':
+        dance_mp4 = request.files['dance_upload']
+        dance_file = 'static/dance/' + dance_mp4.filename
+        dance_mp4.save(dance_file)
+    else:
+        dance_file = 'static/dance/' + dance_options
+        
+    user_dance_file = 'static/user_dance/user_rec_video.mp4'
+
+    return render_template('sim_spinner.html', menu=menu, dance_file=dance_file, user_dance_file=user_dance_file)
+
+# 일치도 처리과정
+@app.route('/menu1_proc', methods=['POST'])
+def menu1_proc():
+    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu1_proc': 1, 'video_rec_proc': 0, 'menu2_res': 0}
     
     dance_file = request.form['dance_file']
     user_dance_file = request.form['user_dance_file']
     
     sim = dance.make_result(dance_file, user_dance_file)
     
-    return render_template('menu1_res')
+    return render_template('menu1_res.html', menu=menu, dance_file=dance_file, user_dance_file=user_dance_file, sim=sim)
+    
         
-
 # 춤 입히기
 @app.route('/menu2', methods=['GET', 'POST'])
 def menu2():
-    menu = {'home': 0, 'menu1': 0, 'menu2': 1, 'menu1_res': 0, 'menu1_rec': 0, 'menu2_res': 0}
+    menu = {'home': 0, 'menu1': 0, 'menu2': 1, 'menu1_res': 0, 'menu1_rec': 0, 'menu1_proc': 0, 'video_rec_proc': 0, 'menu2_res': 0}
     
     if request.method == 'GET':
         # 저장되어 있는 파일 목록 가져오기
@@ -185,7 +207,7 @@ def menu2():
 
 @app.route('/menu2_res', methods=['POST'])
 def menu2_res():
-    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu2_res': 1}
+    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu1_proc': 0, 'video_rec_proc': 0, 'menu2_res': 1}
     
     return render_template('menu2_res.html')
 

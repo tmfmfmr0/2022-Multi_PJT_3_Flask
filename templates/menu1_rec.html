@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="/video_proc" method="POST" enctype="multipart/form-data">
+<form action="/video_rec_proc" method="POST" enctype="multipart/form-data">
     <div class="row justify-content-center">
         <div class="col-sm-6">
             <div class="card text-white bg-secondary mt-4 ml-5 mr-5 mb-4">
@@ -32,7 +32,7 @@
                         <strong>선택된 춤 영상 :</strong>
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
-                        <video id="preview1" style="width:80%; height:100%; no-repeat center center; background-size:cover;" controls autoplay>
+                        <video id="preview1" style="width:80%; height:100%; no-repeat center center; background-size:cover;" controls>
                             <source id="src1", src="static\dance\BTS - Dynamite.mp4">
                         </video>
                     </div>
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="card text-white bg-secondary mt-4 ml-5 mr-5 mb-4 h-90">
+            <div class="card text-white bg-secondary mt-4 ml-5 mr-5 mb-4">
                 <div class="card-body">
                     <h5 class="card-title">사용자 춤 영상</h5>
                     <p class="card-text">영상 녹화를 시작합니다 녹화버튼을 누르면 3초후 녹화가 시작됩니다.</p>
@@ -67,7 +67,7 @@
 {% endblock %}
 
 {% block additional_body %}
-<script src="{{url_for('static', filename='js/video.js', q=23)}}"></script> 
+<script src="{{url_for('static', filename='js/video.js', q=25)}}"></script> 
 <script>
     $("#dance_upload").on("change", function() {
         var fileName1 = $(this).val().split("\\").pop();
@@ -76,15 +76,6 @@
     $("#dance_direct").on("click", function() {
         var condition = $("#dance_upload").prop("disabled");
         $("#dance_upload").prop("disabled", condition ? false : true);
-    });
-
-    $("#user_dance_upload").on("change", function() {
-        var fileName2 = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
-    });
-    $("#user_dance_direct").on("click", function() {
-        var condition = $("#user_dance_upload").prop("disabled");
-        $("#user_dance_upload").prop("disabled", condition ? false : true);
     });
 
     $("#dance_select").on("change", function() {
@@ -107,28 +98,6 @@
         document.getElementById("preview2").play();
     })
 
-    var count = 3;
-    const show = document.getElementById('show');
-    function disp(num) {
-        let img = document.createElement('img');
-        img.setAttribute('src', 'static/digits/metro'+num+'.svg');
-        img.setAttribute('width', '50');
-        img.setAttribute('id', 'second');
-        img.setAttribute('class', 'm-5');
-        show.append(img);
-    }
-    function contDown() {
-        disp(count--);
-        let interval = setInterval(() => {
-            hide();
-            if (count != 0)
-                disp(count--);            
-        }, 1000);
-        setTimeout(() => {
-            clearInterval(interval);
-        }, 3000);
-    }
-    window.onload = countDown;
 </script>
 {% endblock %}
 

@@ -2,7 +2,7 @@ const record = document.getElementById("record");
 const stop = document.getElementById("stop");
 const cam = document.getElementById("cam");
 const td1 = document.getElementById("td1");
-const td2 = document.getElementById("td2");
+// const td2 = document.getElementById("td2");
 const webcam = document.getElementById('webcam');
 const video = document.createElement('video');
 var constraints = { video:true, audio:false };
@@ -11,7 +11,7 @@ function tableData() {
     video.setAttribute('controls', '');   // controls는 동영상에 소리조절, 일시정지등을 해줄수 있게 하는 컨트롤러 제공
     td1.append(video);
 
-    let input = document.createElement("input");
+    /*let input = document.createElement("input");
     input.classList.add("btn", "btn-primary", "mr-2");
     input.setAttribute('type', 'submit');
     input.setAttribute('value', '사용');
@@ -20,7 +20,7 @@ function tableData() {
     input.classList.add("btn", "btn-secondary");
     input.setAttribute('type', 'reset');
     input.setAttribute('value', '취소');
-    td2.append(input);
+    td2.append(input);*/
 }
 
 console.log(navigator.mediaDevices);
