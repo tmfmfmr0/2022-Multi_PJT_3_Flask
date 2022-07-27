@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block subtitle %}
-    <strong>춤 동작 일치도</strong>
+    <strong>imitator</strong>
 {% endblock %}
 {% block content %}
 <div class="row justify-content-center">
@@ -17,14 +17,18 @@
                 <video controls autoplay src="{{dance_file}}" width="640px", height="360px" type="video/mp4"></video>
             </div>
             <div class="col-6">
-                <video controls autoplay src="{{user_dance_file}}" width="640px", height="360px" type="video/mp4"></video>
+                <video controls autoplay src="{{user_360_file}}" width="640px", height="360px" type="video/mp4"></video>
+            </div>
+            <div class="col-6">
+                <img src="{{bg_file}}" width="640px", height="360px" type="img/png"/>
             </div>
         <div class="card-body">
     </div>
 </div>
-<form style="display: none" action="/menu1_proc" method="POST" id="form">
+<form style="display: none" action="/menu2_proc" method="POST" id="form">
     <input type="hidden" name="dance_file" value="{{dance_file}}"/>
-    <input type="hidden" name="user_dance_file" value="{{user_dance_file}}"/>
+    <input type="hidden" name="user_360_file" value="{{user_360_file}}"/>
+    <input type="hidden" name="bg_file" value="{{bg_file}}"/>
 </form>
 {% endblock %}
 {% block additional_body %}
