@@ -15,7 +15,9 @@
                     {% for option in dance_options[:-1] %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" id="dance_select" {% if loop.first %} checked {% endif %}> {{option.disp}}
+                                <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" id="dance_{{loop.index0}}" 
+                                    onclick="display({{loop.index0}})"
+                                    {% if loop.first %} checked {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
@@ -32,8 +34,8 @@
                         <strong>선택된 춤 영상 :</strong>
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
-                        <video id="preview1" style="width:90%; height:100%; no-repeat center center; background-size:cover;" controls autoplay>
-                            <source id="src1", src="">
+                        <video id="preview1" style="width:90%; height:100%; no-repeat center center; background-size:cover;" controls>
+                            <source id="src1", src="static\dance\BTS - DNA.mp4">
                         </video>
                     </div>
                 </div>
@@ -47,7 +49,9 @@
                     {% for option in user_360_options[:-1] %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="user_360_option" value="{{option.val}}" id="user_360_select" {% if loop.first %} checked {% endif %}> {{option.disp}}
+                                <input type="radio" class="form-check-input" name="user_360_option" value="{{option.val}}" id="user360_{{loop.index0}}" 
+                                    onclick="display({{loop.index0}})"
+                                    {% if loop.first %} checked {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
@@ -64,8 +68,8 @@
                         <strong>선택된 모델 360˚ 영상 :</strong>
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
-                        <video id="preview2" style="width:90%; height:100%; no-repeat center center; background-size:cover;" controls autoplay>
-                            <source id="src2", src="">
+                        <video id="preview2" style="width:90%; height:100%; no-repeat center center; background-size:cover;" controls>
+                            <source id="src2", src="static\user_360\user신웅.mp4">
                         </video>
                     </div>
                 </div>
@@ -77,11 +81,13 @@
                     <h5 class="card-title">배경 사진</h5>
                     <p class="card-text">무대가 될 배경을 선택하세요</p>
                     {% for option in background_options[:-1] %}
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="background_option" value="{{option.val}}" id="background_select" {% if loop.first %} checked {% endif %}> {{option.disp}}
-                                </label>
-                            </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="background_option" value="{{option.val}}" id="background_{{loop.index0}}" 
+                                    onclick="display({{loop.index0}})"
+                                    {% if loop.first %} checked {% endif %}> {{option.disp}}
+                            </label>
+                        </div>
                     {% endfor %}
                     <div class="form-check-inline">
                         <label class="form-check-label">
@@ -97,7 +103,7 @@
                         <strong>선택된 배경 사진 :</strong>
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
-                        <img id="preview3" style="width:90%; background:url('thumbnai3.jpg') no-repeat center center;background-size:cover;" >
+                        <img id="preview3" src="static\background\무대 파랑.jpg" style="width:90%; no-repeat center center;background-size:cover;">
                     </div>
                 </div>
             </div>
@@ -111,18 +117,6 @@
 
 {% block additional_body %}
     <script>
-        $("#dance_upload").on("change", function() {
-            var fileName1 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
-        });
-        $("#user_360_upload").on("change", function() {
-            var fileName2 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
-        });
-        $("#background_upload").on("change", function() {
-            var fileName3 = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName3);
-        });
 
         $("#dance_direct").on("click", function() {
             var condition = $("#dance_upload").prop("disabled");
@@ -137,18 +131,11 @@
             $("#background_upload").prop("disabled", condition ? false : true);
         });
 
-        $("#dance_select").on("change", function(e) {
-            document.getElementById('src1').src = e.target.result;
-        })
-        $("#user_360_select").on("change", function(e) {
-            document.getElementById('src2').src = e.target.result;
-        })
-        $("#background_select").on("change", function(e) {
-            const file = document.getElementById("background_select").files[0];
-            const videourl = URL.createObjectURL(file);
-            document.getElementById("preview3").setAttribute("src", videourl);
-            document.getElementById("preview3").play();
-        })
+
+
+
+
+
 
         $("#dance_upload").on("change", function() {
             const file = document.getElementById("dance_upload").files[0];
@@ -162,16 +149,11 @@
             document.getElementById("preview2").setAttribute("src", videourl);
             document.getElementById("preview2").play();
         })
-        function previewP(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('preview3').src = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                document.getElementById('preview3').src = "";
-            }
-        }
+        $("#background_upload").on("change", function() {
+            const file = document.getElementById("background_upload").files[0];
+            const videourl = URL.createObjectURL(file);
+            document.getElementById("preview3").setAttribute("src", videourl);
+            document.getElementById("preview3").play();
+        })
     </script>
 {% endblock %}

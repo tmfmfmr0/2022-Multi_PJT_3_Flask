@@ -15,7 +15,7 @@
                     {% for option in dance_options[:-1] %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" id="dance_select" {% if loop.first %} checked {% endif %}> {{option.disp}}
+                                <input type="radio" class="form-check-input" name="dance_option" value="{{option.val}}" id="d{{dance_options.index(option)}}" {% if loop.first %} checked {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
@@ -33,7 +33,7 @@
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
                         <video id="preview1" style="width:80%; height:100%; no-repeat center center; background-size:cover;" controls autoplay>
-                            <source id="src1", src="">
+                            <source id="src1", src="static\dance\BTS - Dynamite.mp4">
                         </video>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     {% for option in user_dance_options[:-1] %}
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="user_dance_option" value="{{option.val}}" id="user_dance_select" {% if loop.first %} checked {% endif %}> {{option.disp}}
+                                <input type="radio" class="form-check-input" name="user_dance_option" value="{{option.val}}" id="ud{{user_dance_options.index(option)}}" {% if loop.first %} checked {% endif %}> {{option.disp}}
                             </label>
                         </div>
                     {% endfor %}
@@ -65,7 +65,7 @@
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
                         <video id="preview2" style="width:80%; height:100%; no-repeat center center; background-size:cover;" controls autoplay>
-                            <source id="src2", src="">
+                            <source id="src2", src="static\user_dance\Dynamite user.mp4">
                         </video>
                     </div>
                 </div>
@@ -81,30 +81,17 @@
 {% block additional_body %}
 <script src="{{url_for('static', filename='js/video.js', q=21)}}"></script> 
 <script>
-    $("#dance_upload").on("change", function() {
-        var fileName1 = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName1);
-    });
-    $("#dance_direct").on("click", function() {
+    $("#dance_direct").on("change", function() {
         var condition = $("#dance_upload").prop("disabled");
         $("#dance_upload").prop("disabled", condition ? false : true);
     });
-
-    $("#user_dance_upload").on("change", function() {
-        var fileName2 = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName2);
-    });
-    $("#user_dance_direct").on("click", function() {
+    $("#user_dance_direct").on("change", function() {
         var condition = $("#user_dance_upload").prop("disabled");
         $("#user_dance_upload").prop("disabled", condition ? false : true);
     });
 
-    $("#dance_select").on("change", function() {
 
-    })
-    $("#user_dance_select").on("change", function() {
 
-    })
 
     $("#dance_upload").on("change", function() {
         const file = document.getElementById("dance_upload").files[0];
