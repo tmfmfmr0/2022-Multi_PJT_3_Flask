@@ -14,7 +14,7 @@ path_background = './static/background'
 
 @app.route('/')
 def index():
-    menu = {'home': 1, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu2_res': 0}
+    menu = {'home': 1, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu2_res': 0}
 
     return render_template('index.html', menu=menu)
 
@@ -22,7 +22,7 @@ def index():
 # 춤 일치도 분석
 @app.route('/menu1', methods=['GET', 'POST'])
 def menu1():
-    menu = {'home': 0, 'menu1': 1, 'menu2': 0, 'menu1_res': 0, 'menu2_res': 0}
+    menu = {'home': 0, 'menu1': 1, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu2_res': 0}
     
     if request.method == 'GET' :
         # 저장되어 있는 파일 목록 가져오기
@@ -63,9 +63,10 @@ def menu1():
         
         return render_template('sim_spinner.html', menu=menu, dance_file=dance_file, user_dance_file=user_dance_file)
 
+# 일치도 결과화면
 @app.route('/menu1_res', methods=['POST'])
 def menu1_res():
-    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 1, 'menu2_res': 0}
+    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 1, 'menu1_rec': 0, 'menu2_res': 0}
     
     dance_file = request.form['dance_file']
     user_dance_file = request.form['user_dance_file']
@@ -74,10 +75,59 @@ def menu1_res():
     
     return render_template('menu1_res.html', menu=menu, dance_file=dance_file, user_dance_file=user_dance_file, sim=sim)
 
+# 일치도 녹화화면
+@app.route('/menu1_rec', methods=['GET', 'POST'])
+def menu1_rec():
+    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 1, 'menu2_res': 0}
+    
+    if request.method == 'GET' :
+        # 저장되어 있는 파일 목록 가져오기
+        list_dance = os.listdir(path_dance)
+        # 파일 목록을 리스트에 딕셔너리 형식으로 넣기
+        dance_options  = []
+        for i in range(len(list_dance)):
+            dance_options.append({'disp': list_dance[i][:-4] , 'val':list_dance[i] })
+        dance_options.append({'disp': '직접추가', 'val':'direct1'})
+
+        return render_template('menu1_rec.html', menu=menu, dance_options=dance_options)
+
+    else :    # request.method == 'POST'
+        dance_options = request.form['dance_option']
+        if not os.path.exists(os.path.join(current_app.root_path, 'static/dance')):
+            os.makedirs(os.path.join(current_app.root_path, 'static/dance'))
+        if dance_options == 'direct1':
+            dance_mp4 = request.files['dance_upload']
+            dance_file = 'static/dance/' + dance_mp4.filename
+            dance_mp4.save(dance_file)
+        else:
+            dance_file = 'static/dance/' + dance_options
+
+
+        if not os.path.exists(os.path.join(current_app.root_path, 'static/user_dance')):
+            os.makedirs(os.path.join(current_app.root_path, 'static/user_dance'))
+
+        user_dance_mp4 = request.files['video_blob']
+        user_dance_file = 'static/user_dance/' + user_dance_mp4.filename
+        user_dance_mp4.save(user_dance_file)
+        
+        return render_template('sim_spinner.html', menu=menu, dance_file=dance_file, user_dance_file=user_dance_file)
+    
+# 일치도 녹화화면에서 함수처리
+@app.route('/video_proc', methods=['POST'])
+def video_proc():
+    
+    dance_file = request.form['dance_file']
+    user_dance_file = request.form['user_dance_file']
+    
+    sim = dance.make_result(dance_file, user_dance_file)
+    
+    return render_template('menu1_res')
+        
+
 # 춤 입히기
 @app.route('/menu2', methods=['GET', 'POST'])
 def menu2():
-    menu = {'home': 0, 'menu1': 0, 'menu2': 1, 'menu1_res': 0, 'menu2_res': 0}
+    menu = {'home': 0, 'menu1': 0, 'menu2': 1, 'menu1_res': 0, 'menu1_rec': 0, 'menu2_res': 0}
     
     if request.method == 'GET':
         # 저장되어 있는 파일 목록 가져오기
@@ -135,7 +185,7 @@ def menu2():
 
 @app.route('/menu2_res', methods=['POST'])
 def menu2_res():
-    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu2_res': 2}
+    menu = {'home': 0, 'menu1': 0, 'menu2': 0, 'menu1_res': 0, 'menu1_rec': 0, 'menu2_res': 1}
     
     return render_template('menu2_res.html')
 

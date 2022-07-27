@@ -5,6 +5,7 @@ import numpy as np
 import joblib
 from moviepy.editor import *
 import math
+import imutils
 import sys
 import time
 import os
@@ -184,7 +185,8 @@ def make_result(video1, video2):
         img = video_clip.get_frame(i)
         img2 = video_clip2.get_frame(i)
         
-        img_user = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
+        img_taget = imutils.resize(img, width=640)
+        img_user = imutils.resize(img2, width=640)
         
         if (num+1) % 20 == 0:
             ss_mean = round(np.mean([i*100 for i in ss[num-18:] if i is not None]))
@@ -197,17 +199,22 @@ def make_result(video1, video2):
             
             similarity = get_sim(result, result2)
             ss.append(similarity)
+            
+            numpy_vertical = np.vstack((img_taget, img_user))
+            ver_cv = cv2.cvtColor(numpy_vertical, cv2.COLOR_BGR2RGB)
 
-            cv2.putText(img_user,  text, (500, 50), cv2.FONT_HERSHEY_DUPLEX, 2, (199, 114, 255), 2, cv2.LINE_AA)        # BGR
-            cv2.imshow("target", img_user)
+            cv2.putText(ver_cv,  text, (10, 380), cv2.FONT_HERSHEY_DUPLEX, 2, (199, 114, 255), 2, cv2.LINE_AA)        # BGR
+            cv2.imshow("target", ver_cv)
             
         except:
+            numpy_vertical = np.vstack((img_taget, img_user))
+            ver_cv = cv2.cvtColor(numpy_vertical, cv2.COLOR_BGR2RGB)
             ss.append(None)
             
-            cv2.putText(img_user,  text, (500, 50), cv2.FONT_HERSHEY_DUPLEX, 2, (199, 114, 255), 2, cv2.LINE_AA)        # BGR
-            cv2.imshow("target", img_user)
+            cv2.putText(ver_cv,  text, (10, 380), cv2.FONT_HERSHEY_DUPLEX, 2, (199, 114, 255), 2, cv2.LINE_AA)        # BGR
+            cv2.imshow("target", ver_cv)
 
-        out.write(img_user) #프레임 쓰기
+        out.write(ver_cv) #프레임 쓰기
     
         if cv2.waitKey(1) & 0xFF == 27:
             break

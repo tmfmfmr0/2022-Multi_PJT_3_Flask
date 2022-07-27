@@ -13,36 +13,6 @@
     <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
     {% block additional_head %} {% endblock %}
-
-    <!--
-    <style>
-        @font-face {
-            font-family: 'NEXON Lv2 Gothic';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'NEXON Lv2 Gothic Bold';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'NEXON Lv2 Gothic Light';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Light.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        a{
-            font-family: 'NEXON Lv2 Gothic Light';
-            color: whitesmoke;
-        }
-        .nav-link {
-            background-color: rgb(8,32,64);
-        }
-    </style>
-    -->
 </head>
 
 
@@ -59,11 +29,14 @@
         </nav>
         <nav class="navbar navbar-center">
             <ul class="nav nav-pills mr-auto">
-                <li class="nav-item mr-5">
-                    <a class="nav-link  {% if menu.menu1 %}active{% else %}bg-warning bg-gradient{% endif %}" 
-                        href="{% if menu.menu1 %}/menu1{% else %}/menu1{% endif %}">
-                        | 춤 일치도 분석 |
+                <li class="nav-item dropdown mr-5">
+                    <a class="nav-link dropwodn-toggle {% if menu.menu1 or menu.menu1_rec %}active{% else %}bg-warning bg-gradient{% endif %}" href="#" data-toggle="dropdown" >
+                        <i class="far fa-list-alt"></i> | 춤 일치도 분석 |
                     </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/menu1">사용자 춤 업로드</a>
+                        <a class="dropdown-item" href="/menu1_rec">사용자 춤 녹화</a>
+                    </div>
                 </li>
                 <li class="nav-item mr-5">
                     <a class="nav-link {% if menu.menu2 %}active{% else %}bg-warning bg-gradient{% endif %}" 

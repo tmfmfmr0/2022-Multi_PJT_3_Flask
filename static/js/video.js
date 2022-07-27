@@ -64,7 +64,7 @@ if (navigator.mediaDevices) {
 
             $.ajax({
                 type: "POST",
-                url: "/module/video",
+                url: "/menu1_rec",
                 data: formData,
                 contentType: false,
                 processData: false,
