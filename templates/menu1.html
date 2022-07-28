@@ -33,7 +33,7 @@
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
                         <video id="preview1" style="width:80%; height:100%; no-repeat center center; background-size:cover;" controls>
-                            <source id="src1", src="static\dance\BTS - Dynamite.mp4">
+                            <source id="src1", src="static\dance\빨간맛.mp4">
                         </video>
                     </div>
                 </div>
@@ -44,18 +44,23 @@
                 <div class="card-body">
                     <h5 class="card-title">사용자 춤 영상</h5>
                     <p class="card-text">영상 녹화를 시작합니다 녹화버튼을 누르면 3초후 녹화가 시작됩니다.</p>
-                    <div id="show">여기에 카운트다운</div>
+                    <div>
+                        
+                    </div>
                     <div class="button_box ml-auto mt-3">
                         <button type="button" class="btn btn-danger mr-2" id="record">Record</button>
-                        <span id="cam" class=""></span>
                         <button type="button" class="btn btn-dark disabled" id="stop">Stop</button>
+                        <div>
+                            <img id="show" src="">
+                            <audio src="static\시작음.mp3" autoplay type="audio/mp3"></audio>
+                        </div>
+                        <span id="cam" class=""></span>
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
                         <div id="td1" style="width:90%; height:100%; no-repeat center center; background-size:cover;" >
                             <video autoplay id="webcam" src="" muted></video>
                         </div>
                     </div>
-                    <div id="td2"></div>
                 </div>
             </div>
         </div>
@@ -78,13 +83,15 @@
         $("#dance_upload").prop("disabled", condition ? false : true);
     });
 
-    function sleep (delay) {
+    function sleep(delay) {
         var start = new Date().getTime();
         while (new Date().getTime() < start + delay);
-    }
+    };
+
     $("#record").on("click", function() {
+        $("#show").attr("src","static\321\3.jpg");
         sleep(3000);
-        $('#preview1'). trigger('play');
+        $('#preview1').trigger('play');
     });
     $("#stop").on("click", function() {
         $('#preview1').trigger('pause');
@@ -102,34 +109,6 @@
         document.getElementById("preview2").setAttribute("src", videourl);
         document.getElementById("preview2").play();
     });
-
-    var count = 3;
-    const show = document.getElementById('show');
-    const rec = document.getElementById('record').addEventListener('click', contDown)
-    function disp(num) {
-        let img = document.createElement('img');
-        img.setAttribute('src', 'static/digits/metro'+num+'.svg');
-        img.setAttribute('width', '50');
-        img.setAttribute('id', 'second');
-        img.setAttribute('class', 'm-5');
-        show.append(img);
-    }
-    
-    function hide() {
-        let sec = document.getElementById('second');
-        show.removeChild(sec);
-    }
-    function contDown() {
-        disp(count--);
-        let interval = setInterval(() => {
-            hide();
-            if (count != 0)
-                disp(count--);            
-        }, 1000);
-        setTimeout(() => {
-            clearInterval(interval);
-        }, 3000);
-    }
 
 </script>
 {% endblock %}

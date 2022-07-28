@@ -8,6 +8,7 @@ import os, math, pandas as pd, numpy as np, matplotlib.pyplot as plt
 app = Flask(__name__)
 
 path_dance = './static/dance'
+path_dance2 = './static/dance2'
 path_user_dance = './static/user_dance'
 path_user_360 = './static/user_360'
 path_background = './static/background'
@@ -154,7 +155,7 @@ def menu2():
     
     if request.method == 'GET':
         # 저장되어 있는 파일 목록 가져오기
-        list_dance = os.listdir(path_dance)
+        list_dance = os.listdir(path_dance2)
         list_user_360 = os.listdir(path_user_360)
         list_background = os.listdir(path_background)
         # 파일 목록을 리스트에 딕셔너리 형식으로 넣기
@@ -175,14 +176,14 @@ def menu2():
         
     else:    # request.method == 'POST'
         dance_options = request.form['dance_option']
-        if not os.path.exists(os.path.join(current_app.root_path, 'static/dance')):
-            os.makedirs(os.path.join(current_app.root_path, 'static/dance'))
+        if not os.path.exists(os.path.join(current_app.root_path, 'static/dance2')):
+            os.makedirs(os.path.join(current_app.root_path, 'static/dance2'))
         if dance_options == 'direct1':
             dance_mp4 = request.files['dance_upload']
-            dance_file = 'static/dance/' + dance_mp4.filename
+            dance_file = 'static/dance2/' + dance_mp4.filename
             dance_mp4.save(dance_file)
         else:
-            dance_file = 'static/dance/' + dance_options
+            dance_file = 'static/dance2/' + dance_options
 
         user_360_options = request.form['user_360_option']
         if not os.path.exists(os.path.join(current_app.root_path, 'static/user_360')):
