@@ -50,10 +50,8 @@
                     <div class="button_box ml-auto mt-3">
                         <button type="button" class="btn btn-danger mr-2" id="record">Record</button>
                         <button type="button" class="btn btn-dark disabled" id="stop">Stop</button>
-                        <div>
-                            <img id="show" src="">
-                            <audio src="static\시작음.mp3" autoplay type="audio/mp3"></audio>
-                        </div>
+                        <img id="show" src="">
+                        <audio id="sound" src="static\시작음.mp3" type="audio/mp3"></audio>
                         <span id="cam" class=""></span>
                     </div>
                     <div class='row justify-content-center mt-3 mb-3'>
@@ -83,13 +81,11 @@
         $("#dance_upload").prop("disabled", condition ? false : true);
     });
 
-    function sleep(delay) {
-        var start = new Date().getTime();
-        while (new Date().getTime() < start + delay);
+    function sleep(ms) {
+        const wakeUpTime = Date.now() + ms;
+        while (Date.now() < wakeUpTime) {}
     };
-
     $("#record").on("click", function() {
-        $("#show").attr("src","static\321\3.jpg");
         sleep(3000);
         $('#preview1').trigger('play');
     });
