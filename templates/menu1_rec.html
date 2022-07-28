@@ -79,7 +79,7 @@
     });
 
     $("#record").on("click", function() {
-        $('#preview1').trigger('play');
+        $('#preview1').delay(3000).trigger('play');
     });
     $("#stop").on("click", function() {
         $('#preview1').trigger('pause');
