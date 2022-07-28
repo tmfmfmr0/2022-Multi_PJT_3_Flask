@@ -45,28 +45,26 @@
     <div class="navbar bg-dark navbar-dark justify-content-center mb-0 pb-0">
         <div class="navbar-text mb-0 pb-0">
             <h2>
-                <a class="nav-link mb-0 pb-0" style="font: 1.5em 'GmarketSansMedium';" href="{% if menu.home %}#{% else %}/{% endif %}">
+                <a class="nav-link mb-0 pb-0" style="font: 1.2em 'GmarketSansMedium';" href="{% if menu.home %}#{% else %}/{% endif %}">
                     AI K-POP Dance Platform</a>
             </h2>
         </div>
     </div>
-    <div class="navbar bg-dark">
-        <ul class="nav nav-pills justify-content-center ml-5">
-            <li class="nav-item dropdown">
-                <a class="nav-link {% if menu.menu1 %}active{% else %}bg-dark bg-gradient{% endif %}" 
+    <div class="navbar bg-dark justify-content-center">
+        <ul class="nav nav-pills">
+            <li class="nav-item" style="margin-right:100px">
+                <a class="nav-link" 
                     href="{% if menu.menu1 %}/menu1{% else %}/menu1{% endif %}">
                     | Motion similarity |
                 </a>
             </li>
-            <li class="nav-item ml-5">
-                <a class="nav-link {% if menu.menu2 %}active{% else %}bg-dark bg-gradient{% endif %}" 
+            <li class="nav-item" style="margin-right:100px">
+                <a class="nav-link" 
                     href="{% if menu.menu2 %}/menu2{% else %}/menu2{% endif %}">
                     | Dance imitator |
                 </a>
             </li>
-        </ul>
-        <ul class="nav nav-pills justify-content-end">
-            <li class="nav-item mr-5">
+            <li class="nav-item">
                 <a class="nav-link"
                     href="">
                     | About US - GitHub |
