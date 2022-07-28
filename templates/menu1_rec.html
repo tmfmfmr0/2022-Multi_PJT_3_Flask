@@ -78,8 +78,13 @@
         $("#dance_upload").prop("disabled", condition ? false : true);
     });
 
+    function sleep (delay) {
+        var start = new Date().getTime();
+        while (new Date().getTime() < start + delay);
+    }
     $("#record").on("click", function() {
-        $('#preview1').delay(3000).trigger('play');
+        sleep(3000);
+        $('#preview1'). trigger('play');
     });
     $("#stop").on("click", function() {
         $('#preview1').trigger('pause');
