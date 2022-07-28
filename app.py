@@ -105,7 +105,7 @@ def video_rec_proc():
     width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)   # 또는 cap.get(3)
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # 또는 cap.get(4)
     fps = cap.get(cv2.CAP_PROP_FPS)             # 또는 cap.get(5)
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')    # 코덱 정의, *'mp4v' == 'm', 'p', '4', 'v', 또는 *'DIVX'
+    fourcc = cv2.VideoWriter_fourcc(*'H264')    # 코덱 정의, *'mp4v' == 'm', 'p', '4', 'v', 또는 *'DIVX'
     out = cv2.VideoWriter('static/user_dance/user_rec_video.mp4', fourcc, fps, (int(width), int(height))) # VideoWriter 객체
     while True:
         ret, img = cap.read()
@@ -203,7 +203,7 @@ def menu2():
         else:
             bg_file = 'static/background/' + background_options
             
-        return render_template('/imi_spinner.html', menu=menu, dance_file=dance_file, user_360_file=user_360_file, bg_file=bg_file)
+        return render_template('/menu2_res.html', menu=menu, dance_file=dance_file, user_360_file=user_360_file, bg_file=bg_file)
 
 @app.route('/menu2_res', methods=['POST'])
 def menu2_res():

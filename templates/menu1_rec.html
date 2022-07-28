@@ -103,6 +103,34 @@
         document.getElementById("preview2").play();
     });
 
+    var count = 3;
+    const show = document.getElementById('show');
+    const rec = document.getElementById('record').addEventListener('click', contDown)
+    function disp(num) {
+        let img = document.createElement('img');
+        img.setAttribute('src', 'static/digits/metro'+num+'.svg');
+        img.setAttribute('width', '50');
+        img.setAttribute('id', 'second');
+        img.setAttribute('class', 'm-5');
+        show.append(img);
+    }
+    
+    function hide() {
+        let sec = document.getElementById('second');
+        show.removeChild(sec);
+    }
+    function contDown() {
+        disp(count--);
+        let interval = setInterval(() => {
+            hide();
+            if (count != 0)
+                disp(count--);            
+        }, 1000);
+        setTimeout(() => {
+            clearInterval(interval);
+        }, 3000);
+    }
+
 </script>
 {% endblock %}
 
